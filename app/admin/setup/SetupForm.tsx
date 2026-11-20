@@ -2,7 +2,18 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { ShieldPlus, Lock, Mail, User, Loader2, AlertCircle } from "lucide-react";
+import {
+  AlertCircle,
+  ArrowLeft,
+  ArrowRight,
+  Eye,
+  EyeOff,
+  Loader2,
+  Lock,
+  Mail,
+  ShieldPlus,
+  User,
+} from "lucide-react";
 
 const authBackgroundStyle = {
   backgroundImage: "url('/auth-background.svg')",
@@ -10,26 +21,81 @@ const authBackgroundStyle = {
   backgroundPosition: "center",
 };
 
+const inputClassName =
+  "w-full pl-10 pr-11 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-sm text-white placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all";
+
+const togglePasswordClassName =
+  "absolute right-3 top-1/2 -translate-y-1/2 rounded-lg p-1.5 text-zinc-500 transition-colors hover:text-zinc-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-500";
+
+function getPasswordStrength(password: string) {
+  if (!password) {
+    return {
+      label: "Digite uma senha",
+      color: "bg-zinc-700",
+      text: "text-zinc-500",
+      width: "0%",
+    };
+  }
+
+  let score = 0;
+  if (password.length >= 6) score += 1;
+  if (password.length >= 10) score += 1;
+  if (/[a-z]/.test(password) && /[A-Z]/.test(password)) score += 1;
+  if (/\d/.test(password) && /[^A-Za-z0-9]/.test(password)) score += 1;
+
+  const levels = [
+    { label: "Fraca", color: "bg-red-400", text: "text-red-400", width: "25%" },
+    {
+      label: "Razoável",
+      color: "bg-emerald-500",
+      text: "text-emerald-400",
+      width: "50%",
+    },
+    { label: "Boa", color: "bg-teal-400", text: "text-teal-300", width: "75%" },
+    { label: "Forte", color: "bg-cyan-400", text: "text-cyan-300", width: "100%" },
+  ];
+
+  return levels[Math.min(score, levels.length - 1)];
+}
+
 export function SetupForm() {
   const router = useRouter();
+  const [step, setStep] = useState<1 | 2>(1);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const strength = getPasswordStrength(password);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
-    if (password !== confirmPassword) {
-      setError("As senhas não coincidem. Por favor, verifique.");
+    if (step === 1) {
+      if (!name.trim()) {
+        setError("Informe seu nome completo.");
+        return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+        setError("Informe um e-mail válido.");
+        return;
+      }
+      setStep(2);
       return;
     }
 
     if (password.length < 6) {
       setError("A senha deve ter pelo menos 6 caracteres.");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError("As senhas não coincidem. Por favor, verifique.");
       return;
     }
 
@@ -79,11 +145,36 @@ export function SetupForm() {
             Configuração inicial
           </h1>
           <p className="text-sm text-zinc-400">
-            Crie a conta do proprietário para acessar o painel e completar o perfil do seu portfólio.
+            {step === 1
+              ? "Crie a conta do proprietário para acessar o painel e completar o perfil do seu portfólio."
+              : "Defina uma senha segura para proteger o acesso ao painel administrativo."}
           </p>
         </div>
 
         <div className="card-motion overflow-hidden bg-zinc-900/80 border border-zinc-800 rounded-2xl p-6 sm:p-8 shadow-xl shadow-black/30 backdrop-blur">
+          <div className="mb-6">
+            <div className="mb-2 flex items-center justify-between">
+              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-emerald-400">
+                Etapa {step} de 2
+              </span>
+              <span className="text-[11px] text-zinc-500">
+                {step === 1 ? "Identificação" : "Segurança"}
+              </span>
+            </div>
+            <div className="flex gap-2" aria-hidden>
+              <div
+                className={`h-1 flex-1 rounded-full transition-colors ${
+                  step >= 1 ? "bg-emerald-500" : "bg-zinc-800"
+                }`}
+              />
+              <div
+                className={`h-1 flex-1 rounded-full transition-colors ${
+                  step >= 2 ? "bg-cyan-500" : "bg-zinc-800"
+                }`}
+              />
+            </div>
+          </div>
+
           <form onSubmit={handleSubmit} className="space-y-5">
             {error && (
               <div className="flex items-start gap-2 p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-sm">
@@ -92,107 +183,171 @@ export function SetupForm() {
               </div>
             )}
 
-            <div className="space-y-1.5">
-              <label htmlFor="name" className="block text-sm font-medium text-zinc-300">
-                Nome completo
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <User className="w-4 h-4 text-zinc-500" />
+            {step === 1 ? (
+              <>
+                <div className="space-y-1.5">
+                  <label htmlFor="name" className="block text-sm font-medium text-zinc-300">
+                    Nome completo
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <User className="w-4 h-4 text-zinc-500" />
+                    </div>
+                    <input
+                      id="name"
+                      type="text"
+                      autoComplete="name"
+                      required
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      className={inputClassName}
+                      placeholder="Seu nome"
+                    />
+                  </div>
                 </div>
-                <input
-                  id="name"
-                  type="text"
-                  autoComplete="name"
-                  required
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-sm text-white placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all"
-                  placeholder="Seu nome"
-                />
-              </div>
-            </div>
 
-            <div className="space-y-1.5">
-              <label htmlFor="email" className="block text-sm font-medium text-zinc-300">
-                E-mail
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Mail className="w-4 h-4 text-zinc-500" />
+                <div className="space-y-1.5">
+                  <label htmlFor="email" className="block text-sm font-medium text-zinc-300">
+                    E-mail
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <Mail className="w-4 h-4 text-zinc-500" />
+                    </div>
+                    <input
+                      id="email"
+                      type="email"
+                      autoComplete="email"
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className={inputClassName}
+                      placeholder="seuemail@exemplo.com"
+                    />
+                  </div>
                 </div>
-                <input
-                  id="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-sm text-white placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all"
-                  placeholder="seuemail@exemplo.com"
-                />
-              </div>
-            </div>
 
-            <div className="space-y-1.5">
-              <label htmlFor="password" className="block text-sm font-medium text-zinc-300">
-                Senha
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="w-4 h-4 text-zinc-500" />
+                <button
+                  type="submit"
+                  className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold rounded-xl shadow-md shadow-emerald-600/20 transition-all focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:ring-offset-2 focus:ring-offset-zinc-900"
+                >
+                  Continuar
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </>
+            ) : (
+              <>
+                <div className="space-y-1.5">
+                  <label htmlFor="password" className="block text-sm font-medium text-zinc-300">
+                    Senha
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <Lock className="w-4 h-4 text-zinc-500" />
+                    </div>
+                    <input
+                      id="password"
+                      type={showPassword ? "text" : "password"}
+                      autoComplete="new-password"
+                      required
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className={inputClassName}
+                      placeholder="Mínimo 6 caracteres"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword((value) => !value)}
+                      aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
+                      className={togglePasswordClassName}
+                    >
+                      {showPassword ? (
+                        <EyeOff className="w-4 h-4" />
+                      ) : (
+                        <Eye className="w-4 h-4" />
+                      )}
+                    </button>
+                  </div>
+
+                  <div className="space-y-2 pt-1">
+                    <div className="flex items-center justify-between text-[11px] font-mono">
+                      <span className="text-zinc-500">Força da senha</span>
+                      <span className={strength.text}>{strength.label}</span>
+                    </div>
+                    <div className="h-1.5 w-full overflow-hidden rounded-full bg-zinc-800">
+                      <div
+                        className={`h-full rounded-full transition-all duration-300 ${strength.color}`}
+                        style={{ width: strength.width }}
+                      />
+                    </div>
+                  </div>
                 </div>
-                <input
-                  id="password"
-                  type="password"
-                  autoComplete="new-password"
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-sm text-white placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all"
-                  placeholder="Mínimo 6 caracteres"
-                />
-              </div>
-            </div>
 
-            <div className="space-y-1.5">
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-zinc-300">
-                Confirmar senha
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="w-4 h-4 text-zinc-500" />
+                <div className="space-y-1.5">
+                  <label htmlFor="confirmPassword" className="block text-sm font-medium text-zinc-300">
+                    Confirmar senha
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <Lock className="w-4 h-4 text-zinc-500" />
+                    </div>
+                    <input
+                      id="confirmPassword"
+                      type={showConfirmPassword ? "text" : "password"}
+                      autoComplete="new-password"
+                      required
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      className={inputClassName}
+                      placeholder="Repita a senha"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmPassword((value) => !value)}
+                      aria-label={showConfirmPassword ? "Ocultar confirmação" : "Mostrar confirmação"}
+                      className={togglePasswordClassName}
+                    >
+                      {showConfirmPassword ? (
+                        <EyeOff className="w-4 h-4" />
+                      ) : (
+                        <Eye className="w-4 h-4" />
+                      )}
+                    </button>
+                  </div>
                 </div>
-                <input
-                  id="confirmPassword"
-                  type="password"
-                  autoComplete="new-password"
-                  required
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-sm text-white placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all"
-                  placeholder="Repita a senha"
-                />
-              </div>
-            </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 bg-emerald-600 hover:bg-emerald-500 disabled:bg-emerald-700 disabled:opacity-70 text-white text-sm font-semibold rounded-xl shadow-md shadow-emerald-600/20 transition-all focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:ring-offset-2 focus:ring-offset-zinc-900"
-            >
-              {loading ? (
-                <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                  <span>Criando conta...</span>
-                </>
-              ) : (
-                <>
-                  <ShieldPlus className="w-4 h-4" />
-                  <span>Criar conta e acessar o painel</span>
-                </>
-              )}
-            </button>
+                <div className="flex gap-3">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setStep(1);
+                      setError(null);
+                    }}
+                    className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-zinc-800 bg-zinc-950/60 text-sm font-medium text-zinc-300 transition-colors hover:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+                  >
+                    <ArrowLeft className="w-4 h-4" />
+                    Voltar
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="flex-1 inline-flex items-center justify-center gap-2 py-2.5 px-4 bg-emerald-600 hover:bg-emerald-500 disabled:bg-emerald-700 disabled:opacity-70 text-white text-sm font-semibold rounded-xl shadow-md shadow-emerald-600/20 transition-all focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:ring-offset-2 focus:ring-offset-zinc-900"
+                  >
+                    {loading ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        <span>Criando conta...</span>
+                      </>
+                    ) : (
+                      <>
+                        <ShieldPlus className="w-4 h-4" />
+                        <span>Criar conta</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              </>
+            )}
           </form>
         </div>
 
