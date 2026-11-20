@@ -1,5 +1,6 @@
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "@prisma/client";
+import { Pool } from "pg";
 
 const rawConnectionString = process.env.DATABASE_URL;
 
@@ -16,17 +17,47 @@ const connectionString = rawConnectionString.replace(
   "$1sslmode=verify-full"
 );
 
+const POOL_MAX = 3;
+
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
+  prismaPoolMax: number | undefined;
 };
 
-export const prisma =
-  globalForPrisma.prisma ??
-  new PrismaClient({
-    adapter: new PrismaPg({ connectionString }),
-    log: process.env.NODE_ENV === "development" ? ["warn", "error"] : ["error"],
+function createPrisma(): PrismaClient {
+  // O Next dev possui vários runtimes (RSC, SSR, route handlers). Cada um com
+  // seu próprio módulo e, portanto, seu próprio pool. O padrão do pg é 10
+  // conexões por pool, o que esgota rapidamente bancos remotos com limite
+  // baixo. Limitamos a 3 conexões por client; as demais consultas ficam na fila.
+  const pool = new Pool({
+    connectionString,
+    max: POOL_MAX,
+    idleTimeoutMillis: 10_000,
+    connectionTimeoutMillis: 10_000,
   });
 
-if (process.env.NODE_ENV !== "production") {
-  globalForPrisma.prisma = prisma;
+  return new PrismaClient({
+    adapter: new PrismaPg(pool, { disposeExternalPool: true }),
+    log: process.env.NODE_ENV === "development" ? ["warn", "error"] : ["error"],
+  });
 }
+
+let client = globalForPrisma.prisma;
+
+// Durante o HMR, o globalThis sobrevive à troca de módulo. Se ele guarda um
+// client da configuração antiga, fechamos o pool antigo antes de criar o novo.
+if (client && globalForPrisma.prismaPoolMax !== POOL_MAX) {
+  void client.$disconnect().catch(() => {});
+  client = undefined;
+}
+
+if (!client) {
+  client = createPrisma();
+}
+
+if (process.env.NODE_ENV !== "production") {
+  globalForPrisma.prisma = client;
+  globalForPrisma.prismaPoolMax = POOL_MAX;
+}
+
+export const prisma = client;
