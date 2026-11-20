@@ -1,4 +1,4 @@
-import { defaultPortfolioData } from "./default-data";
+import { createEmptyPortfolioData } from "./default-data";
 import { prisma } from "./prisma";
 import type {
   Experience,
@@ -8,8 +8,6 @@ import type {
   Tool,
 } from "../types/portfolio";
 import { Prisma } from "@prisma/client";
-
-export { defaultPortfolioData };
 
 const PROFILE_ID = "profile-main";
 
@@ -21,8 +19,7 @@ export async function getPortfolioData(): Promise<PortfolioData> {
   });
 
   if (!profile) {
-    await savePortfolioData(defaultPortfolioData);
-    return defaultPortfolioData;
+    return createEmptyPortfolioData();
   }
 
   const [

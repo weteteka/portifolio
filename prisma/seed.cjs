@@ -3,7 +3,7 @@ const fs = require("node:fs/promises");
 const path = require("node:path");
 const bcrypt = require("bcryptjs");
 const { PrismaPg } = require("@prisma/adapter-pg");
-const { PrismaClient } = require("../lib/generated/prisma");
+const { PrismaClient } = require("@prisma/client");
 
 const connectionString = process.env.DATABASE_URL;
 if (!connectionString) {

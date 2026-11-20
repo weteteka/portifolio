@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import { hashPassword, createSession, hasAnyUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { createEmptyPortfolioData } from "@/lib/default-data";
+
+const PROFILE_ID = "profile-main";
 
 export async function POST(request: Request) {
   try {
@@ -64,6 +67,15 @@ export async function POST(request: Request) {
         email: trimmedEmail,
         passwordHash: await hashPassword(cleanPassword),
       },
+    });
+
+    // Cria o perfil do portfólio a partir dos dados reais do cadastro,
+    // em vez de depender do auto-seed com dados de exemplo.
+    const emptyData = createEmptyPortfolioData(trimmedName, trimmedEmail);
+    await prisma.profile.upsert({
+      where: { id: PROFILE_ID },
+      create: { id: PROFILE_ID, ...emptyData.profile },
+      update: { name: trimmedName, email: trimmedEmail },
     });
 
     await createSession({

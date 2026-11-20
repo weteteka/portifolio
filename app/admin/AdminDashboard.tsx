@@ -33,7 +33,6 @@ import {
   Plus,
   Trash2,
   Edit,
-  RotateCcw,
   CheckCircle,
   AlertCircle,
   Loader2,
@@ -114,35 +113,6 @@ export function AdminDashboard({ initialData, user }: AdminDashboardProps) {
     setData(updated);
     setProfileModalOpen(false);
     await handleSaveAll(updated);
-  };
-
-  const handleResetData = async () => {
-    if (!confirm("Tem certeza que deseja restaurar os dados padrão do portfólio? Todas as customizações serão substituídas.")) {
-      return;
-    }
-
-    setSaving(true);
-    try {
-      const res = await fetch("/api/portfolio", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "reset" }),
-      });
-
-      const result = await res.json();
-      if (!res.ok) throw new Error(result.error || "Falha ao restaurar dados.");
-
-      setData(result.data);
-      showNotification("success", "Dados restaurados para o padrão com sucesso!");
-    } catch (err: unknown) {
-      if (err instanceof Error) {
-        showNotification("error", err.message);
-      } else {
-        showNotification("error", "Erro ao restaurar dados.");
-      }
-    } finally {
-      setSaving(false);
-    }
   };
 
   const handleLogout = async () => {
@@ -459,16 +429,6 @@ export function AdminDashboard({ initialData, user }: AdminDashboardProps) {
             <ExternalLink className="w-3.5 h-3.5 text-zinc-400" />
             <span className="hidden md:inline">Ver Site</span>
           </Link>
-
-          <button
-            onClick={handleResetData}
-            disabled={saving}
-            className="inline-flex items-center gap-1.5 p-2 sm:px-3 sm:py-1.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-xs font-medium text-zinc-300 transition-colors"
-            title="Restaurar dados originais padrão"
-          >
-            <RotateCcw className="w-3.5 h-3.5 text-amber-400" />
-            <span className="hidden lg:inline">Restaurar</span>
-          </button>
 
           <button
             onClick={() => handleSaveAll()}

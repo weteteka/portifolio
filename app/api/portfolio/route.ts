@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getPortfolioData, savePortfolioData, defaultPortfolioData } from "@/lib/db";
+import { getPortfolioData, savePortfolioData } from "@/lib/db";
 import { getSessionUser } from "@/lib/auth";
 import { PortfolioData } from "@/types/portfolio";
 
@@ -53,36 +53,6 @@ export async function PUT(request: Request) {
     console.error("Update portfolio error:", error);
     return NextResponse.json(
       { error: "Erro ao salvar alterações no portfólio." },
-      { status: 500 }
-    );
-  }
-}
-
-export async function POST(request: Request) {
-  try {
-    const session = await getSessionUser();
-    if (!session) {
-      return NextResponse.json(
-        { error: "Acesso não autorizado." },
-        { status: 401 }
-      );
-    }
-
-    const { action } = await request.json();
-    if (action === "reset") {
-      await savePortfolioData(defaultPortfolioData);
-      return NextResponse.json({
-        success: true,
-        message: "Portfólio restaurado para os dados padrão com sucesso!",
-        data: defaultPortfolioData,
-      });
-    }
-
-    return NextResponse.json({ error: "Ação não reconhecida." }, { status: 400 });
-  } catch (error) {
-    console.error("Action error:", error);
-    return NextResponse.json(
-      { error: "Erro ao processar ação." },
       { status: 500 }
     );
   }
