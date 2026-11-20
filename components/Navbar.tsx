@@ -26,10 +26,6 @@ export function Navbar({ name }: NavbarProps) {
 
   const navLinks = siteNavLinks.map(({ label, href }) => ({ label, href }));
 
-  useEffect(() => {
-    setIsOpen(false);
-  }, [pathname]);
-
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full ${

@@ -12,29 +12,28 @@ interface ProfileModalProps {
   onSave: (profile: Profile) => void;
 }
 
-export function ProfileModal({
-  open,
+type ProfileModalFormProps = Omit<ProfileModalProps, "open">;
+
+export function ProfileModal({ open, ...formProps }: ProfileModalProps) {
+  if (!open) return null;
+  return <ProfileModalForm {...formProps} />;
+}
+
+function ProfileModalForm({
   profile,
   saving,
   onClose,
   onSave,
-}: ProfileModalProps) {
+}: ProfileModalFormProps) {
   const [draft, setDraft] = useState<Profile>(profile);
 
   useEffect(() => {
-    if (open) setDraft(profile);
-  }, [open, profile]);
-
-  useEffect(() => {
-    if (!open) return;
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") onClose();
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [open, onClose]);
-
-  if (!open) return null;
+  }, [onClose]);
 
   const update = <K extends keyof Profile>(key: K, value: Profile[K]) => {
     setDraft((current) => ({ ...current, [key]: value }));
