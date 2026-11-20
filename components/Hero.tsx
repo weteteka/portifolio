@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { Profile, SocialLink } from "@/types/portfolio";
 import { DynamicIcon } from "./DynamicIcon";
+import { resolveAvatarUrl } from "@/lib/media";
 import { ArrowDown, Download, Sparkles, Briefcase, Award, CheckCircle2 } from "lucide-react";
 
 interface HeroProps {
@@ -30,8 +31,8 @@ export function Hero({ profile, socials }: HeroProps) {
           <div className="absolute -inset-1.5 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-500"></div>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={profile.avatarUrl}
-            alt={profile.name}
+            src={resolveAvatarUrl(profile.avatarUrl)}
+            alt={profile.name || "Avatar padrão"}
             className="relative w-32 h-32 sm:w-44 sm:h-44 rounded-full object-cover border-4 border-zinc-900 shadow-2xl"
           />
           <div className="absolute bottom-1 right-1 p-1.5 sm:p-2 bg-zinc-900 border border-zinc-700 rounded-full text-emerald-400 shadow-md">

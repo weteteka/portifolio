@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Project } from "@/types/portfolio";
 import { FolderGit2, ExternalLink, Star } from "lucide-react";
 import { DynamicIcon } from "./DynamicIcon";
+import { resolveProjectImageUrl } from "@/lib/media";
 
 interface ProjectsSectionProps {
   projects: Project[];
@@ -62,7 +63,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
               <div className="relative aspect-video w-full overflow-hidden bg-zinc-900">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={project.imageUrl}
+                  src={resolveProjectImageUrl(project.imageUrl)}
                   alt={project.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />

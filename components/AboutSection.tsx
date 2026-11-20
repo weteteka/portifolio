@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Profile } from "@/types/portfolio";
+import { resolveAvatarUrl } from "@/lib/media";
 import { Mail, Phone, MapPin, CheckCircle, UserCheck } from "lucide-react";
 
 interface AboutSectionProps {
@@ -30,8 +31,8 @@ export function AboutSection({ profile }: AboutSectionProps) {
               <div className="w-full aspect-square rounded-2xl overflow-hidden mb-5 sm:mb-6 relative group">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={profile.avatarUrl}
-                  alt={profile.name}
+                  src={resolveAvatarUrl(profile.avatarUrl)}
+                  alt={profile.name || "Avatar padrão"}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent"></div>

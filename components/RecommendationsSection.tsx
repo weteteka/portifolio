@@ -4,6 +4,7 @@ import React from "react";
 import { Recommendation } from "@/types/portfolio";
 import { Quote } from "lucide-react";
 import { DynamicIcon } from "./DynamicIcon";
+import { resolveAvatarUrl } from "@/lib/media";
 
 interface RecommendationsSectionProps {
   recommendations: Recommendation[];
@@ -45,8 +46,8 @@ export function RecommendationsSection({ recommendations }: RecommendationsSecti
               <div className="pt-4 border-t border-zinc-800/70 flex items-center gap-3">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={rec.avatarUrl}
-                  alt={rec.author}
+                  src={resolveAvatarUrl(rec.avatarUrl)}
+                  alt={rec.author || "Avatar padrão"}
                   className="w-10 h-10 sm:w-11 sm:h-11 rounded-full object-cover border-2 border-emerald-500/40 shrink-0"
                 />
                 <div className="overflow-hidden flex-1 min-w-0">

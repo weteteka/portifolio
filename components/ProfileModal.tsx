@@ -12,6 +12,7 @@ import {
   X,
 } from "lucide-react";
 import type { Profile } from "@/types/portfolio";
+import { resolveAvatarUrl } from "@/lib/media";
 
 interface ProfileModalProps {
   open: boolean;
@@ -238,7 +239,7 @@ function ProfileModalForm({
                   />
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={draft.avatarUrl}
+                    src={resolveAvatarUrl(draft.avatarUrl)}
                     alt="Prévia do avatar"
                     className="w-9 h-9 sm:w-10 sm:h-10 rounded-full object-cover border border-zinc-700 shrink-0"
                   />

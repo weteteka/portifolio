@@ -15,6 +15,7 @@ import {
   SocialLink,
   Profile,
 } from "@/types/portfolio";
+import { DEFAULT_AVATAR_URL, DEFAULT_PROJECT_IMAGE_URL, resolveAvatarUrl, resolveProjectImageUrl } from "@/lib/media";
 import { DynamicIcon, ICON_OPTIONS } from "@/components/DynamicIcon";
 import { ProfileModal } from "@/components/ProfileModal";
 import {
@@ -181,7 +182,7 @@ export function AdminDashboard({ initialData, user }: AdminDashboardProps) {
           title: "",
           description: "",
           longDescription: "",
-          imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
+          imageUrl: DEFAULT_PROJECT_IMAGE_URL,
           tagsString: "React, Next.js, TypeScript",
           liveUrl: "",
           githubUrl: "",
@@ -214,7 +215,7 @@ export function AdminDashboard({ initialData, user }: AdminDashboardProps) {
           author: "",
           role: "",
           company: "",
-          avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
+          avatarUrl: DEFAULT_AVATAR_URL,
           content: "",
           relationship: "Colega de trabalho",
           linkedinUrl: "",
@@ -601,7 +602,7 @@ export function AdminDashboard({ initialData, user }: AdminDashboardProps) {
               <div className="flex flex-col sm:flex-row gap-5 items-start sm:items-center">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={data.profile.avatarUrl}
+                  src={resolveAvatarUrl(data.profile.avatarUrl)}
                   alt="Foto de perfil"
                   className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover border border-zinc-700 shadow-lg shrink-0"
                 />
@@ -930,7 +931,7 @@ export function AdminDashboard({ initialData, user }: AdminDashboardProps) {
                     <div className="aspect-video w-full relative bg-zinc-900">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
-                        src={proj.imageUrl}
+                        src={resolveProjectImageUrl(proj.imageUrl)}
                         alt={proj.title}
                         className="w-full h-full object-cover"
                       />
@@ -1110,7 +1111,7 @@ export function AdminDashboard({ initialData, user }: AdminDashboardProps) {
                         <div className="flex items-center gap-2.5 min-w-0">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
-                            src={rec.avatarUrl}
+                            src={resolveAvatarUrl(rec.avatarUrl)}
                             alt={rec.author}
                             className="w-9 h-9 sm:w-10 sm:h-10 rounded-full object-cover border border-emerald-500/40 shrink-0"
                           />
