@@ -34,7 +34,7 @@ export function ExperiencesSection({ experiences }: ExperiencesSectionProps) {
               <div className="absolute -left-[9px] top-2 w-4 h-4 rounded-full bg-zinc-950 border-2 border-emerald-500 group-hover:bg-emerald-400 transition-colors shadow-sm shadow-emerald-500/40" />
 
               {/* Company & Role Card */}
-              <div className="p-4 sm:p-6 rounded-2xl bg-zinc-900/70 border border-zinc-800/90 hover:border-emerald-500/40 transition-all hover:bg-zinc-900 shadow-xl">
+              <div className="card-motion overflow-hidden p-4 sm:p-6 rounded-2xl bg-zinc-900/70 border border-zinc-800/90 hover:border-emerald-500/40 transition-all hover:bg-zinc-900 shadow-xl">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
                   <div>
                     <h3 className="text-base sm:text-xl font-bold text-white group-hover:text-emerald-400 transition-colors flex items-center gap-2">

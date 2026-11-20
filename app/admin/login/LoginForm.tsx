@@ -123,7 +123,7 @@ export function LoginForm() {
           </div>
         </section>
 
-        <section className="auth-card-motion relative overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900/80 p-6 shadow-2xl shadow-black/40 backdrop-blur sm:p-8">
+        <section className="card-motion relative overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900/80 p-6 shadow-2xl shadow-black/40 backdrop-blur sm:p-8">
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-400 to-cyan-400" />
 
           <div className="mb-7 lg:hidden">

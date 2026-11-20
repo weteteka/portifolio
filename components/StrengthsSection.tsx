@@ -31,7 +31,7 @@ export function StrengthsSection({ strengths }: StrengthsSectionProps) {
           {strengths.map((item) => (
             <div
               key={item.id}
-              className="group p-5 sm:p-6 rounded-2xl bg-zinc-950/80 border border-zinc-800/80 hover:border-cyan-500/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-cyan-500/5 relative overflow-hidden"
+              className="card-motion group p-5 sm:p-6 rounded-2xl bg-zinc-950/80 border border-zinc-800/80 hover:border-cyan-500/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-cyan-500/5 relative overflow-hidden"
             >
               <div className="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 rounded-full blur-2xl group-hover:bg-cyan-500/15 transition-all"></div>
 

@@ -39,7 +39,7 @@ export function ContactSection({ profile, socials }: ContactSectionProps) {
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <a
               href={`mailto:${profile.email}`}
-              className="group flex min-w-0 items-center gap-4 rounded-2xl border border-zinc-800 bg-zinc-900/70 p-5 transition-all hover:-translate-y-0.5 hover:border-emerald-500/50 hover:bg-zinc-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
+              className="card-motion overflow-hidden group flex min-w-0 items-center gap-4 rounded-2xl border border-zinc-800 bg-zinc-900/70 p-5 transition-all hover:-translate-y-0.5 hover:border-emerald-500/50 hover:bg-zinc-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
             >
               <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-400 transition-colors group-hover:bg-emerald-500 group-hover:text-zinc-950">
                 <Mail className="h-5 w-5" />
@@ -57,7 +57,7 @@ export function ContactSection({ profile, socials }: ContactSectionProps) {
 
             <a
               href={phoneHref}
-              className="group flex min-w-0 items-center gap-4 rounded-2xl border border-zinc-800 bg-zinc-900/70 p-5 transition-all hover:-translate-y-0.5 hover:border-cyan-500/50 hover:bg-zinc-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-500"
+              className="card-motion overflow-hidden group flex min-w-0 items-center gap-4 rounded-2xl border border-zinc-800 bg-zinc-900/70 p-5 transition-all hover:-translate-y-0.5 hover:border-cyan-500/50 hover:bg-zinc-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-500"
             >
               <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-cyan-500/10 text-cyan-400 transition-colors group-hover:bg-cyan-500 group-hover:text-zinc-950">
                 <Phone className="h-5 w-5" />
@@ -92,7 +92,7 @@ export function ContactSection({ profile, socials }: ContactSectionProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`Abrir ${soc.platform}`}
-                  className="group flex min-w-0 items-center gap-3 rounded-xl border border-zinc-800 bg-zinc-900/60 p-4 transition-all hover:-translate-y-0.5 hover:border-emerald-500/50 hover:bg-zinc-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
+                  className="card-motion overflow-hidden group flex min-w-0 items-center gap-3 rounded-xl border border-zinc-800 bg-zinc-900/60 p-4 transition-all hover:-translate-y-0.5 hover:border-emerald-500/50 hover:bg-zinc-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
                 >
                   <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-400 transition-colors group-hover:bg-emerald-500 group-hover:text-zinc-950">
                     <DynamicIcon

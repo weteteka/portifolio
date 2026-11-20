@@ -31,7 +31,7 @@ export function RecommendationsSection({ recommendations }: RecommendationsSecti
           {recommendations.map((rec) => (
             <div
               key={rec.id}
-              className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-zinc-900/60 border border-zinc-800/80 hover:border-emerald-500/40 transition-all flex flex-col justify-between group shadow-xl relative"
+              className="card-motion overflow-hidden p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-zinc-900/60 border border-zinc-800/80 hover:border-emerald-500/40 transition-all flex flex-col justify-between group shadow-xl relative"
             >
               <div className="mb-5 sm:mb-6">
                 <div className="text-emerald-500/30 group-hover:text-emerald-400/50 transition-colors mb-3">

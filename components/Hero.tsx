@@ -109,7 +109,7 @@ export function Hero({ profile, socials }: HeroProps) {
 
         {/* Floating Key Metrics / Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 w-full max-w-3xl">
-          <div className="p-4 sm:p-5 rounded-2xl bg-zinc-900/70 border border-zinc-800/80 backdrop-blur-sm flex items-center gap-3.5 sm:gap-4 text-left shadow-lg">
+          <div className="card-motion overflow-hidden p-4 sm:p-5 rounded-2xl bg-zinc-900/70 border border-zinc-800/80 backdrop-blur-sm flex items-center gap-3.5 sm:gap-4 text-left shadow-lg">
             <div className="p-2.5 sm:p-3 rounded-xl bg-emerald-500/10 text-emerald-400 shrink-0">
               <Briefcase className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
@@ -121,7 +121,7 @@ export function Hero({ profile, socials }: HeroProps) {
             </div>
           </div>
 
-          <div className="p-4 sm:p-5 rounded-2xl bg-zinc-900/70 border border-zinc-800/80 backdrop-blur-sm flex items-center gap-3.5 sm:gap-4 text-left shadow-lg">
+          <div className="card-motion overflow-hidden p-4 sm:p-5 rounded-2xl bg-zinc-900/70 border border-zinc-800/80 backdrop-blur-sm flex items-center gap-3.5 sm:gap-4 text-left shadow-lg">
             <div className="p-2.5 sm:p-3 rounded-xl bg-cyan-500/10 text-cyan-400 shrink-0">
               <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
@@ -133,7 +133,7 @@ export function Hero({ profile, socials }: HeroProps) {
             </div>
           </div>
 
-          <div className="p-4 sm:p-5 rounded-2xl bg-zinc-900/70 border border-zinc-800/80 backdrop-blur-sm flex items-center gap-3.5 sm:gap-4 text-left shadow-lg">
+          <div className="card-motion overflow-hidden p-4 sm:p-5 rounded-2xl bg-zinc-900/70 border border-zinc-800/80 backdrop-blur-sm flex items-center gap-3.5 sm:gap-4 text-left shadow-lg">
             <div className="p-2.5 sm:p-3 rounded-xl bg-teal-500/10 text-teal-400 shrink-0">
               <Award className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>

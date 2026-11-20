@@ -83,7 +83,7 @@ export function SetupForm() {
           </p>
         </div>
 
-        <div className="auth-card-motion overflow-hidden bg-zinc-900/80 border border-zinc-800 rounded-2xl p-6 sm:p-8 shadow-xl shadow-black/30 backdrop-blur">
+        <div className="card-motion overflow-hidden bg-zinc-900/80 border border-zinc-800 rounded-2xl p-6 sm:p-8 shadow-xl shadow-black/30 backdrop-blur">
           <form onSubmit={handleSubmit} className="space-y-5">
             {error && (
               <div className="flex items-start gap-2 p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-sm">

@@ -66,7 +66,7 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
             {filteredSkills.map((skill) => (
               <div
                 key={skill.id}
-                className="p-4 sm:p-5 rounded-2xl bg-zinc-900/60 border border-zinc-800/80 hover:border-emerald-500/40 transition-all hover:bg-zinc-900/90 group"
+                className="card-motion overflow-hidden p-4 sm:p-5 rounded-2xl bg-zinc-900/60 border border-zinc-800/80 hover:border-emerald-500/40 transition-all hover:bg-zinc-900/90 group"
               >
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">

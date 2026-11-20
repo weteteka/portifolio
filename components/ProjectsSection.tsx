@@ -56,7 +56,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
           {filteredProjects.map((project) => (
             <div
               key={project.id}
-              className="rounded-2xl sm:rounded-3xl bg-zinc-950 border border-zinc-800/90 overflow-hidden hover:border-cyan-500/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-cyan-500/5 flex flex-col justify-between group"
+              className="card-motion rounded-2xl sm:rounded-3xl bg-zinc-950 border border-zinc-800/90 overflow-hidden hover:border-cyan-500/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-cyan-500/5 flex flex-col justify-between group"
             >
               {/* Image banner */}
               <div className="relative aspect-video w-full overflow-hidden bg-zinc-900">

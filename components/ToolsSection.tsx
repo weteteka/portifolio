@@ -83,7 +83,7 @@ export function ToolsSection({ tools, skills }: ToolsSectionProps) {
             {skills.map((skill) => (
               <div
                 key={skill.id}
-                className="group flex items-center gap-3 p-3.5 sm:p-4 rounded-xl bg-zinc-950/90 border border-emerald-500/10 hover:border-emerald-500/50 hover:bg-zinc-900 transition-all shadow-sm"
+                className="card-motion overflow-hidden group flex items-center gap-3 p-3.5 sm:p-4 rounded-xl bg-zinc-950/90 border border-emerald-500/10 hover:border-emerald-500/50 hover:bg-zinc-900 transition-all shadow-sm"
               >
                 <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-emerald-500 group-hover:text-zinc-950 transition-all">
                   <DynamicIcon name={getTechnologyIcon(skill)} className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -138,7 +138,7 @@ export function ToolsSection({ tools, skills }: ToolsSectionProps) {
             {filteredTools.map((tool) => (
               <div
                 key={tool.id}
-                className="p-3.5 sm:p-4 rounded-xl bg-zinc-950/90 border border-zinc-800/80 hover:border-teal-500/50 hover:bg-zinc-900 transition-all flex items-center gap-3 group shadow-sm"
+                className="card-motion overflow-hidden p-3.5 sm:p-4 rounded-xl bg-zinc-950/90 border border-zinc-800/80 hover:border-teal-500/50 hover:bg-zinc-900 transition-all flex items-center gap-3 group shadow-sm"
               >
                 <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-teal-500/10 border border-teal-500/20 text-teal-400 flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-teal-500 group-hover:text-zinc-950 transition-all">
                   <DynamicIcon name={tool.iconName || "Box"} className="w-4 h-4 sm:w-5 sm:h-5" />

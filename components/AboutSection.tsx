@@ -26,7 +26,7 @@ export function AboutSection({ profile }: AboutSectionProps) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Photo & Quick Info Card */}
           <div className="lg:col-span-5 flex flex-col items-center w-full">
-            <div className="w-full max-w-sm rounded-3xl overflow-hidden bg-zinc-900/80 border border-zinc-800 p-5 sm:p-6 shadow-2xl relative">
+            <div className="card-motion w-full max-w-sm rounded-3xl overflow-hidden bg-zinc-900/80 border border-zinc-800 p-5 sm:p-6 shadow-2xl relative">
               <div className="w-full aspect-square rounded-2xl overflow-hidden mb-5 sm:mb-6 relative group">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -43,17 +43,17 @@ export function AboutSection({ profile }: AboutSectionProps) {
 
               {/* Quick Details */}
               <div className="space-y-2.5 text-xs sm:text-sm text-zinc-300">
-                <div className="flex items-center gap-2.5 sm:gap-3 p-2.5 rounded-xl bg-zinc-950/60 border border-zinc-800/60">
+                <div className="card-motion overflow-hidden flex items-center gap-2.5 sm:gap-3 p-2.5 rounded-xl bg-zinc-950/60 border border-zinc-800/60">
                   <MapPin className="w-4 h-4 text-emerald-400 shrink-0" />
                   <span className="truncate">{profile.location}</span>
                 </div>
-                <div className="flex items-center gap-2.5 sm:gap-3 p-2.5 rounded-xl bg-zinc-950/60 border border-zinc-800/60">
+                <div className="card-motion overflow-hidden flex items-center gap-2.5 sm:gap-3 p-2.5 rounded-xl bg-zinc-950/60 border border-zinc-800/60">
                   <Mail className="w-4 h-4 text-emerald-400 shrink-0" />
                   <a href={`mailto:${profile.email}`} className="truncate hover:text-emerald-300">
                     {profile.email}
                   </a>
                 </div>
-                <div className="flex items-center gap-2.5 sm:gap-3 p-2.5 rounded-xl bg-zinc-950/60 border border-zinc-800/60">
+                <div className="card-motion overflow-hidden flex items-center gap-2.5 sm:gap-3 p-2.5 rounded-xl bg-zinc-950/60 border border-zinc-800/60">
                   <Phone className="w-4 h-4 text-emerald-400 shrink-0" />
                   <span className="truncate">{profile.phone}</span>
                 </div>
@@ -72,7 +72,7 @@ export function AboutSection({ profile }: AboutSectionProps) {
             </div>
 
             <div className="pt-4 border-t border-zinc-900 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="flex items-start gap-3 p-3 rounded-xl bg-zinc-900/40 border border-zinc-800/50">
+              <div className="card-motion overflow-hidden flex items-start gap-3 p-3 rounded-xl bg-zinc-900/40 border border-zinc-800/50">
                 <CheckCircle className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
                 <div>
                   <h4 className="font-semibold text-xs sm:text-sm text-zinc-200">Compromisso com Prazos</h4>
@@ -80,7 +80,7 @@ export function AboutSection({ profile }: AboutSectionProps) {
                 </div>
               </div>
 
-              <div className="flex items-start gap-3 p-3 rounded-xl bg-zinc-900/40 border border-zinc-800/50">
+              <div className="card-motion overflow-hidden flex items-start gap-3 p-3 rounded-xl bg-zinc-900/40 border border-zinc-800/50">
                 <CheckCircle className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
                 <div>
                   <h4 className="font-semibold text-xs sm:text-sm text-zinc-200">Arquitetura Moderna</h4>

@@ -30,7 +30,7 @@ export function LanguagesSection({ languages }: LanguagesSectionProps) {
           {languages.map((lang) => (
             <div
               key={lang.id}
-              className="p-5 sm:p-6 rounded-2xl bg-zinc-900/80 border border-zinc-800 hover:border-cyan-500/40 transition-all flex flex-col justify-between"
+              className="card-motion overflow-hidden p-5 sm:p-6 rounded-2xl bg-zinc-900/80 border border-zinc-800 hover:border-cyan-500/40 transition-all flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between mb-3">
