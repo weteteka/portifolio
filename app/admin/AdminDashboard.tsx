@@ -16,6 +16,17 @@ import {
   Profile,
 } from "@/types/portfolio";
 import { DEFAULT_AVATAR_URL, DEFAULT_PROJECT_IMAGE_URL, resolveAvatarUrl, resolveProjectImageUrl } from "@/lib/media";
+import {
+  PROJECT_CATEGORIES,
+  SKILL_CATEGORIES,
+  TOOL_CATEGORIES,
+} from "@/lib/portfolio-categories";
+
+// Keep stale values selectable so an existing item never renders a blank select.
+function withCurrentOption(options: readonly string[], current?: string): string[] {
+  if (!current) return [...options];
+  return options.includes(current) ? [...options] : [current, ...options];
+}
 import { DynamicIcon, ICON_OPTIONS } from "@/components/DynamicIcon";
 import { ProfileModal } from "@/components/ProfileModal";
 import {
@@ -98,6 +109,7 @@ export function AdminDashboard({ initialData, user }: AdminDashboardProps) {
       if (!res.ok) throw new Error(result.error || "Erro ao salvar dados.");
 
       showNotification("success", "Todas as alterações foram salvas com sucesso!");
+      router.refresh();
     } catch (err: unknown) {
       if (err instanceof Error) {
         showNotification("error", err.message);
@@ -135,7 +147,7 @@ export function AdminDashboard({ initialData, user }: AdminDashboardProps) {
         values: {
           id: `skill-${Date.now()}`,
           name: "",
-          category: "Frontend",
+          category: SKILL_CATEGORIES[0],
           level: 80,
           highlight: false,
         } as Skill,
@@ -169,7 +181,7 @@ export function AdminDashboard({ initialData, user }: AdminDashboardProps) {
         values: {
           id: `tool-${Date.now()}`,
           name: "",
-          category: "Desenvolvimento",
+          category: TOOL_CATEGORIES[0],
           iconName: "Code",
         } as Tool,
       });
@@ -187,7 +199,7 @@ export function AdminDashboard({ initialData, user }: AdminDashboardProps) {
           liveUrl: "",
           githubUrl: "",
           featured: false,
-          category: "Full Stack",
+          category: PROJECT_CATEGORIES[0],
         },
       });
     } else if (tab === "experiences") {
@@ -354,16 +366,17 @@ export function AdminDashboard({ initialData, user }: AdminDashboardProps) {
   // Delete item helper
   const handleDeleteItem = (tab: TabType, index: number) => {
     if (!confirm("Tem certeza que deseja excluir este item?")) return;
-    const updated = { ...data };
+    const removeAt = <T,>(items: T[]): T[] => items.filter((_, i) => i !== index);
+    const updated: PortfolioData = { ...data };
 
-    if (tab === "skills") updated.skills.splice(index, 1);
-    else if (tab === "strengths") updated.strengths.splice(index, 1);
-    else if (tab === "languages") updated.languages.splice(index, 1);
-    else if (tab === "tools") updated.tools.splice(index, 1);
-    else if (tab === "projects") updated.projects.splice(index, 1);
-    else if (tab === "experiences") updated.experiences.splice(index, 1);
-    else if (tab === "recommendations") updated.recommendations.splice(index, 1);
-    else if (tab === "socials") updated.socials.splice(index, 1);
+    if (tab === "skills") updated.skills = removeAt(updated.skills);
+    else if (tab === "strengths") updated.strengths = removeAt(updated.strengths);
+    else if (tab === "languages") updated.languages = removeAt(updated.languages);
+    else if (tab === "tools") updated.tools = removeAt(updated.tools);
+    else if (tab === "projects") updated.projects = removeAt(updated.projects);
+    else if (tab === "experiences") updated.experiences = removeAt(updated.experiences);
+    else if (tab === "recommendations") updated.recommendations = removeAt(updated.recommendations);
+    else if (tab === "socials") updated.socials = removeAt(updated.socials);
 
     setData(updated);
     handleSaveAll(updated);
@@ -1269,10 +1282,14 @@ export function AdminDashboard({ initialData, user }: AdminDashboardProps) {
                       }
                       className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-xs sm:text-sm text-white"
                     >
-                      <option value="Frontend">Frontend</option>
-                      <option value="Backend">Backend</option>
-                      <option value="DevOps & Cloud">DevOps & Cloud</option>
-                      <option value="Mobile & Outros">Mobile & Outros</option>
+                      {withCurrentOption(
+                        SKILL_CATEGORIES,
+                        editingItem.values.category,
+                      ).map((category) => (
+                        <option key={category} value={category}>
+                          {category}
+                        </option>
+                      ))}
                     </select>
                   </div>
                   <div>
@@ -1465,10 +1482,14 @@ export function AdminDashboard({ initialData, user }: AdminDashboardProps) {
                       }
                       className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-xs sm:text-sm text-white"
                     >
-                      <option value="Desenvolvimento">Desenvolvimento</option>
-                      <option value="DevOps & Cloud">DevOps & Cloud</option>
-                      <option value="Design & Prototipagem">Design & Prototipagem</option>
-                      <option value="Produtividade">Produtividade</option>
+                      {withCurrentOption(
+                        TOOL_CATEGORIES,
+                        editingItem.values.category,
+                      ).map((category) => (
+                        <option key={category} value={category}>
+                          {category}
+                        </option>
+                      ))}
                     </select>
                   </div>
                   <div>
@@ -1529,10 +1550,14 @@ export function AdminDashboard({ initialData, user }: AdminDashboardProps) {
                       }
                       className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-xs sm:text-sm text-white"
                     >
-                      <option value="Full Stack">Full Stack</option>
-                      <option value="Frontend">Frontend</option>
-                      <option value="Backend">Backend</option>
-                      <option value="Mobile">Mobile</option>
+                      {withCurrentOption(
+                        PROJECT_CATEGORIES,
+                        editingItem.values.category,
+                      ).map((category) => (
+                        <option key={category} value={category}>
+                          {category}
+                        </option>
+                      ))}
                     </select>
                   </div>
                   <div>

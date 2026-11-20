@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Skill } from "@/types/portfolio";
+import { SKILL_CATEGORIES } from "@/lib/portfolio-categories";
 import { Code2, Star } from "lucide-react";
 
 interface SkillsSectionProps {
@@ -11,22 +12,7 @@ interface SkillsSectionProps {
 export function SkillsSection({ skills }: SkillsSectionProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>("Todas");
 
-  const categories = [
-    "Todas",
-    "Frontend",
-    "Backend",
-    "Fullstack",
-    "DevOps & Cloud",
-    "Mobile & Outros",
-    "UI/UX & Design",
-    "Prototipagem",
-    "Banco de Dados",
-    "Testes & Qualidade",
-    "Ferramentas & Utilitários",
-    "Linguagens de Programação",
-    "Frameworks & Bibliotecas",
-    "Outros",
-  ];
+  const categories = ["Todas", ...SKILL_CATEGORIES];
 
   const filteredSkills =
     selectedCategory === "Todas"

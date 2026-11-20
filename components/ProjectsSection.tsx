@@ -5,6 +5,7 @@ import { Project } from "@/types/portfolio";
 import { FolderGit2, ExternalLink, Star } from "lucide-react";
 import { DynamicIcon } from "./DynamicIcon";
 import { resolveProjectImageUrl } from "@/lib/media";
+import { PROJECT_CATEGORIES } from "@/lib/portfolio-categories";
 
 interface ProjectsSectionProps {
   projects: Project[];
@@ -13,7 +14,7 @@ interface ProjectsSectionProps {
 export function ProjectsSection({ projects }: ProjectsSectionProps) {
   const [filter, setFilter] = useState<string>("Todos");
 
-  const categories = ["Todos", "Full Stack", "Frontend", "Backend", "Mobile"];
+  const categories = ["Todos", ...PROJECT_CATEGORIES];
 
   const filteredProjects =
     filter === "Todos" ? projects : projects.filter((p) => p.category === filter);

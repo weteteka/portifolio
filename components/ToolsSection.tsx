@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Skill, Tool } from "@/types/portfolio";
+import { TOOL_CATEGORIES } from "@/lib/portfolio-categories";
 import { DynamicIcon } from "./DynamicIcon";
 import { Wrench } from "lucide-react";
 
@@ -26,10 +27,12 @@ const technologyIcons: Record<string, string> = {
 const categoryIcons: Record<Skill["category"], string> = {
   Frontend: "Code2",
   Backend: "Server",
+  Fullstack: "Layers",
   "DevOps & Cloud": "Cloud",
   "Mobile & Outros": "Smartphone",
   "UI/UX & Design": "Palette",
   "Design & Prototipagem": "Layout",
+  Prototipagem: "Palette",
   "Banco de Dados": "Database",
   "Testes & Qualidade": "CheckCircle2",
   "Ferramentas & Utilitários": "Tool",
@@ -45,19 +48,7 @@ function getTechnologyIcon(skill: Skill) {
 export function ToolsSection({ tools, skills }: ToolsSectionProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>("Todas");
 
-  const categories = [
-    "Todas",
-    "Desenvolvimento",
-    "DevOps & Cloud",
-    "Design & Prototipagem",
-    "Produtividade",
-    "Comunicação",
-    "Colaboração",
-    "Banco de Dados",
-    "Testes & Qualidade",
-    "Ferramentas & Utilitários",
-    "Outros",
-  ];
+  const categories = ["Todas", ...TOOL_CATEGORIES];
 
   const filteredTools =
     selectedCategory === "Todas"
