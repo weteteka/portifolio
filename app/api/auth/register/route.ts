@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
-import { getUsers, saveUsers } from "@/lib/db";
 import { hashPassword, createSession } from "@/lib/auth";
-import { User } from "@/types/portfolio";
+import { prisma } from "@/lib/prisma";
 
 export async function POST(request: Request) {
   try {
@@ -41,8 +40,9 @@ export async function POST(request: Request) {
       );
     }
 
-    const users = await getUsers();
-    const alreadyExists = users.some((u) => u.email.toLowerCase() === trimmedEmail);
+    const alreadyExists = await prisma.user.findUnique({
+      where: { email: trimmedEmail },
+    });
 
     if (alreadyExists) {
       return NextResponse.json(
@@ -51,17 +51,13 @@ export async function POST(request: Request) {
       );
     }
 
-    const passwordHash = await hashPassword(cleanPassword);
-    const newUser: User = {
-      id: `admin-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
-      name: trimmedName,
-      email: trimmedEmail,
-      passwordHash,
-      createdAt: new Date().toISOString(),
-    };
-
-    users.push(newUser);
-    await saveUsers(users);
+    const newUser = await prisma.user.create({
+      data: {
+        name: trimmedName,
+        email: trimmedEmail,
+        passwordHash: await hashPassword(cleanPassword),
+      },
+    });
 
     await createSession({
       id: newUser.id,

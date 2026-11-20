@@ -122,7 +122,7 @@ function FigmaIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-const customIconMap: Record<string, React.ComponentType<any>> = {
+const customIconMap: Record<string, React.ComponentType<LucideProps>> = {
   Cpu,
   Lightbulb,
   Sparkles,

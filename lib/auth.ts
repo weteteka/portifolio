@@ -1,8 +1,7 @@
 import crypto from "crypto";
 import bcrypt from "bcryptjs";
 import { cookies } from "next/headers";
-import { getUsers, saveUsers } from "./db";
-import { User } from "@/types/portfolio";
+import { prisma } from "./prisma";
 
 const SESSION_COOKIE = "portfolio_admin_token";
 const SESSION_SECRET = process.env.ADMIN_SESSION_SECRET || "portfolio-super-secret-key-change-in-prod-xyz123";
@@ -80,17 +79,16 @@ export async function logoutUser(): Promise<void> {
 }
 
 export async function ensureInitialAdmin(): Promise<void> {
-  const users = await getUsers();
-  if (users.length === 0) {
-    // Seed default admin account: admin@portfolio.com / admin123
-    const defaultPasswordHash = await hashPassword("admin123");
-    const defaultAdmin: User = {
+  const existingUser = await prisma.user.findFirst();
+  if (existingUser) return;
+
+  // Seed default admin account: admin@portfolio.com / admin123
+  await prisma.user.create({
+    data: {
       id: "admin-default",
       name: "Administrador",
       email: "admin@portfolio.com",
-      passwordHash: defaultPasswordHash,
-      createdAt: new Date().toISOString(),
-    };
-    await saveUsers([defaultAdmin]);
-  }
+      passwordHash: await hashPassword("admin123"),
+    },
+  });
 }

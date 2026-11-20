@@ -1,0 +1,399 @@
+{
+  "profile": {
+    "name": "Alexandre Silva",
+    "role": "Desenvolvedor Full Stack & Arquiteto de Software",
+    "tagline": "Transformando ideias complexas em experiências digitais velozes, escaláveis e memoráveis.",
+    "aboutMe": "Sou um desenvolvedor apaixonado por tecnologia com mais de 5 anos de experiência projetando e construindo ecossistemas de software robustos. Especializado em ecossistema JavaScript/TypeScript, React, Next.js, Node.js e arquiteturas de nuvem. Tenho forte compromisso com excelência técnica, clean code, padrões de projeto modernos e impacto real no negócio dos clientes e usuários.",
+    "avatarUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80",
+    "email": "alexandre.contato@email.com",
+    "phone": "+55 (11) 98765-4321",
+    "location": "São Paulo, Brasil (Disponível Remoto)",
+    "availability": "Disponível para novos projetos e posições estratégicas",
+    "yearsOfExperience": 5,
+    "projectsCompleted": 38,
+    "happyClients": 24,
+    "resumeUrl": "#"
+  },
+  "skills": [
+    {
+      "id": "skill-1",
+      "name": "React / Next.js",
+      "category": "Frontend",
+      "level": 95,
+      "highlight": true
+    },
+    {
+      "id": "skill-2",
+      "name": "TypeScript",
+      "category": "Frontend",
+      "level": 92,
+      "highlight": true
+    },
+    {
+      "id": "skill-3",
+      "name": "Tailwind CSS & UI/UX",
+      "category": "Frontend",
+      "level": 94,
+      "highlight": true
+    },
+    {
+      "id": "skill-4",
+      "name": "Node.js & Express / NestJS",
+      "category": "Backend",
+      "level": 90,
+      "highlight": true
+    },
+    {
+      "id": "skill-5",
+      "name": "PostgreSQL & Prisma / SQL",
+      "category": "Backend",
+      "level": 88,
+      "highlight": true
+    },
+    {
+      "id": "skill-6",
+      "name": "GraphQL & RESTful APIs",
+      "category": "Backend",
+      "level": 86,
+      "highlight": false
+    },
+    {
+      "id": "skill-7",
+      "name": "Docker & Containerização",
+      "category": "DevOps & Cloud",
+      "level": 84,
+      "highlight": false
+    },
+    {
+      "id": "skill-8",
+      "name": "CI/CD & GitHub Actions",
+      "category": "DevOps & Cloud",
+      "level": 82,
+      "highlight": false
+    },
+    {
+      "id": "skill-9",
+      "name": "AWS / Cloud Computing",
+      "category": "DevOps & Cloud",
+      "level": 78,
+      "highlight": false
+    },
+    {
+      "id": "skill-10",
+      "name": "React Native / Mobile",
+      "category": "Mobile & Outros",
+      "level": 75,
+      "highlight": false
+    }
+  ],
+  "strengths": [
+    {
+      "id": "strength-1",
+      "title": "Arquitetura Limpa & Escalável",
+      "description": "Desenvolvimento de bases de código manuteníveis, modulares e preparadas para crescer sem gargalos de desempenho.",
+      "icon": "Cpu"
+    },
+    {
+      "id": "strength-2",
+      "title": "Resolução Analítica de Problemas",
+      "description": "Capacidade ágil de identificar causas raízes, otimizar processos complexos e transformar desafios em soluções práticas.",
+      "icon": "Lightbulb"
+    },
+    {
+      "id": "strength-3",
+      "title": "Foco em Experiência do Usuário (UX)",
+      "description": "Atenção refinada aos detalhes visuais, microinterações, acessibilidade e performance de carregamento ultrarrápido.",
+      "icon": "Sparkles"
+    },
+    {
+      "id": "strength-4",
+      "title": "Liderança Técnica & Comunicação",
+      "description": "Habilidade de articular ideias com clareza, guiar equipes multidisciplinares e alinhar expectativas entre negócios e engenharia.",
+      "icon": "Users"
+    },
+    {
+      "id": "strength-5",
+      "title": "Aprendizado Contínuo & Adaptação",
+      "description": "Adoção rápida de novas tecnologias, frameworks e melhores práticas que impulsionam os resultados dos projetos.",
+      "icon": "Rocket"
+    },
+    {
+      "id": "strength-6",
+      "title": "Segurança & Confiabilidade",
+      "description": "Implementação de autenticação robusta, proteção de dados e integridade de sistemas em todas as camadas de aplicação.",
+      "icon": "ShieldCheck"
+    }
+  ],
+  "languages": [
+    {
+      "id": "lang-1",
+      "name": "Português",
+      "level": "Nativo / Língua Materna",
+      "percentage": 100
+    },
+    {
+      "id": "lang-2",
+      "name": "Inglês",
+      "level": "Fluente / Profissional Completo (C1)",
+      "percentage": 90
+    },
+    {
+      "id": "lang-3",
+      "name": "Espanhol",
+      "level": "Intermediário Técnico",
+      "percentage": 65
+    }
+  ],
+  "tools": [
+    {
+      "id": "tool-1",
+      "name": "Visual Studio Code",
+      "category": "Desenvolvimento",
+      "iconName": "Code"
+    },
+    {
+      "id": "tool-2",
+      "name": "Git & GitHub",
+      "category": "Desenvolvimento",
+      "iconName": "GitBranch"
+    },
+    {
+      "id": "tool-3",
+      "name": "Docker",
+      "category": "DevOps & Cloud",
+      "iconName": "Box"
+    },
+    {
+      "id": "tool-4",
+      "name": "Postman & Insomnia",
+      "category": "Desenvolvimento",
+      "iconName": "Send"
+    },
+    {
+      "id": "tool-5",
+      "name": "Figma",
+      "category": "Design & Prototipagem",
+      "iconName": "Figma"
+    },
+    {
+      "id": "tool-6",
+      "name": "Linux / Terminal Bash",
+      "category": "DevOps & Cloud",
+      "iconName": "Terminal"
+    },
+    {
+      "id": "tool-7",
+      "name": "Vercel & Cloudflare",
+      "category": "DevOps & Cloud",
+      "iconName": "Cloud"
+    },
+    {
+      "id": "tool-8",
+      "name": "Notion & Linear",
+      "category": "Produtividade",
+      "iconName": "CheckSquare"
+    }
+  ],
+  "recommendations": [
+    {
+      "id": "rec-1",
+      "author": "Mariana Costa",
+      "role": "Head of Engineering",
+      "company": "TechNova Solutions",
+      "avatarUrl": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80",
+      "content": "O Alexandre é um dos engenheiros mais focados e eficientes com quem já tive o privilégio de trabalhar. Ele não apenas domina o código de ponta a ponta, mas entende as dores reais do usuário final e entrega soluções de altíssimo nível.",
+      "relationship": "Liderou diretamente projetos estratégicos na TechNova",
+      "linkedinUrl": "https://linkedin.com"
+    },
+    {
+      "id": "rec-2",
+      "author": "Carlos Eduardo Mendes",
+      "role": "Senior Product Manager",
+      "company": "Inovare Digital",
+      "avatarUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80",
+      "content": "Trabalhar com o Alexandre foi uma experiência transformadora para nosso produto. Sua atenção com a performance, design responsivo e arquitetura do Next.js reduziu nosso tempo de carregamento em mais de 60%. Recomendo fortemente!",
+      "relationship": "Colaboraram na reformulação da plataforma central",
+      "linkedinUrl": "https://linkedin.com"
+    },
+    {
+      "id": "rec-3",
+      "author": "Juliana Ferreira",
+      "role": "Fundadora & CEO",
+      "company": "Pulse Fintech",
+      "avatarUrl": "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=200&q=80",
+      "content": "Excelente profissional! Entregou nosso dashboard analítico no prazo estipulado com segurança impenetrável e uma experiência de usuário impecável. Continua sendo nossa referência para novas demandas.",
+      "relationship": "Contratante em consultoria e desenvolvimento",
+      "linkedinUrl": "https://linkedin.com"
+    }
+  ],
+  "projects": [
+    {
+      "id": "proj-1",
+      "title": "Nexus Analytics Dashboard",
+      "description": "Plataforma SaaS moderna de análise de métricas financeiras em tempo real para times de alta performance.",
+      "longDescription": "Sistema completo com processamento de transações, gráficos interativos em SVG/Canvas, gestão de permissões por nível de usuário e exportação automatizada de relatórios em PDF.",
+      "imageUrl": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
+      "tags": [
+        "Next.js",
+        "TypeScript",
+        "Tailwind CSS",
+        "Recharts",
+        "Prisma"
+      ],
+      "liveUrl": "https://example.com/nexus",
+      "githubUrl": "https://github.com/example/nexus-analytics",
+      "featured": true,
+      "category": "Full Stack"
+    },
+    {
+      "id": "proj-2",
+      "title": "E-Commerce Luxe Flow",
+      "description": "Plataforma de comércio eletrônico de alta conversão com checkout otimizado, busca instantânea e painel admin.",
+      "longDescription": "Construído com foco em velocidade Core Web Vitals nota 100, integração com gateways de pagamento seguros e cálculo dinâmico de frete.",
+      "imageUrl": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
+      "tags": [
+        "React",
+        "Next.js",
+        "Stripe API",
+        "Node.js",
+        "Tailwind"
+      ],
+      "liveUrl": "https://example.com/luxeflow",
+      "githubUrl": "https://github.com/example/luxeflow-ecommerce",
+      "featured": true,
+      "category": "Full Stack"
+    },
+    {
+      "id": "proj-3",
+      "title": "DevSync - Workflow Colaborativo",
+      "description": "Aplicativo de gestão de sprints e tarefas em tempo real com WebSockets, quadro Kanban e automações.",
+      "longDescription": "Permite que times de tecnologia distribuídos sincronizem suas entregas com atualizações instantâneas, comentários em rich text e histórico de revisões.",
+      "imageUrl": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80",
+      "tags": [
+        "TypeScript",
+        "Node.js",
+        "Socket.io",
+        "React",
+        "PostgreSQL"
+      ],
+      "liveUrl": "https://example.com/devsync",
+      "githubUrl": "https://github.com/example/devsync-app",
+      "featured": true,
+      "category": "Frontend"
+    },
+    {
+      "id": "proj-4",
+      "title": "Sentinel Auth & Security Gateway",
+      "description": "API de autenticação corporativa com suporte a MFA, OAuth2, RBAC e auditoria de acessos em conformidade com LGPD.",
+      "longDescription": "Microsserviço de segurança leve e ultra veloz com taxas de resposta abaixo de 15ms e testes automatizados com 98% de cobertura.",
+      "imageUrl": "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80",
+      "tags": [
+        "Node.js",
+        "Express",
+        "Docker",
+        "Redis",
+        "JWT"
+      ],
+      "liveUrl": "https://example.com/sentinel",
+      "githubUrl": "https://github.com/example/sentinel-gateway",
+      "featured": false,
+      "category": "Backend"
+    }
+  ],
+  "experiences": [
+    {
+      "id": "exp-1",
+      "company": "TechNova Solutions",
+      "role": "Engenheiro de Software Senior",
+      "period": "2023 - Presente",
+      "location": "São Paulo, SP (Remoto)",
+      "description": "Responsável pela liderança técnica de projetos web de alta escala, desenhando arquiteturas frontend com Next.js e microsserviços Node.js.",
+      "achievements": [
+        "Aumentou a velocidade de carregamento da aplicação em 45% com Server Components e otimização de assets.",
+        "Mentoria técnica para 6 desenvolvedores juniores e plenos na transição para TypeScript e boas práticas de clean code.",
+        "Estruturou pipelines CI/CD com GitHub Actions reduzindo tempo de deploy de 25 para 4 minutos."
+      ],
+      "technologies": [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "Tailwind CSS",
+        "Docker",
+        "AWS"
+      ],
+      "companyUrl": "https://technova.example.com"
+    },
+    {
+      "id": "exp-2",
+      "company": "Inovare Digital",
+      "role": "Desenvolvedor Full Stack Pleno",
+      "period": "2021 - 2023",
+      "location": "Campinas, SP (Híbrido)",
+      "description": "Construção de aplicações web responsivas, dashboards de análise de dados e integrações com APIs bancárias e de pagamento.",
+      "achievements": [
+        "Desenvolveu o módulo central de faturamento responsável por processar mais de 100k transações mensais.",
+        "Implementou testes automatizados aumentando a confiabilidade da release para 99.8%."
+      ],
+      "technologies": [
+        "React",
+        "Node.js",
+        "PostgreSQL",
+        "Express",
+        "REST APIs"
+      ],
+      "companyUrl": "https://inovaredigital.example.com"
+    },
+    {
+      "id": "exp-3",
+      "company": "CyberWeb Studio",
+      "role": "Desenvolvedor Frontend Júnior",
+      "period": "2019 - 2021",
+      "location": "São Paulo, SP (Presencial)",
+      "description": "Criação de landing pages interativas, portais corporativos e e-commerces com foco em SEO, responsividade e fidelidade aos layouts do Figma.",
+      "achievements": [
+        "Mais de 20 sites entregues com aprovação dos clientes acima de 95%.",
+        "Pioneiro na introdução de Tailwind CSS na equipe, reduzindo custos de prototipagem."
+      ],
+      "technologies": [
+        "JavaScript",
+        "HTML5",
+        "CSS3 / Sass",
+        "Tailwind CSS",
+        "Git"
+      ],
+      "companyUrl": "https://cyberweb.example.com"
+    }
+  ],
+  "socials": [
+    {
+      "id": "soc-1",
+      "platform": "GitHub",
+      "url": "https://github.com",
+      "icon": "Github"
+    },
+    {
+      "id": "soc-2",
+      "platform": "LinkedIn",
+      "url": "https://linkedin.com",
+      "icon": "Linkedin"
+    },
+    {
+      "id": "soc-3",
+      "platform": "Twitter / X",
+      "url": "https://x.com",
+      "icon": "Twitter"
+    },
+    {
+      "id": "soc-4",
+      "platform": "WhatsApp",
+      "url": "https://wa.me/5511987654321",
+      "icon": "MessageSquare"
+    },
+    {
+      "id": "soc-5",
+      "platform": "Instagram",
+      "url": "https://instagram.com",
+      "icon": "Instagram"
+    }
+  ]
+}

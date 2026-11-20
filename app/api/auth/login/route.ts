@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { getUsers } from "@/lib/db";
 import { verifyPassword, createSession, ensureInitialAdmin } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
 
 export async function POST(request: Request) {
   try {
@@ -15,9 +15,10 @@ export async function POST(request: Request) {
       );
     }
 
-    const users = await getUsers();
     const normalizedEmail = String(email).trim().toLowerCase();
-    const user = users.find((u) => u.email.toLowerCase() === normalizedEmail);
+    const user = await prisma.user.findUnique({
+      where: { email: normalizedEmail },
+    });
 
     if (!user) {
       return NextResponse.json(

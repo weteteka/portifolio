@@ -1,5 +1,21 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Banco de dados (PostgreSQL + Prisma)
+
+O projeto persiste os dados do portfólio e os usuários administradores em PostgreSQL através do Prisma.
+
+```bash
+cp .env.example .env
+npm run db:up        # sobe o container do PostgreSQL na porta 5434
+npm run db:migrate   # cria/aplica as migrations
+npm run db:seed      # popula dados iniciais (e importa data/*.json, se existirem)
+npm run dev
+```
+
+Outros comandos úteis: `npm run db:deploy` (aplica migrations em produção), `npm run db:generate` (regera o client), `npm run db:studio` e `npm run db:down`.
+
+> A porta host padrão é **5434** porque a porta 5432 já está ocupada por outro container neste ambiente. Ajuste `POSTGRES_PORT` e `DATABASE_URL` no `.env` se necessário.
+
 ## Getting Started
 
 First, run the development server:
