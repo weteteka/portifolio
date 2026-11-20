@@ -73,7 +73,7 @@ export function Navbar({ name }: NavbarProps) {
           <div className="hidden sm:flex items-center gap-2.5 shrink-0">
             <Link
               href="/contato"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-500 rounded-xl px-3.5 py-2 shadow-sm shadow-emerald-600/30 transition-all hover:shadow-emerald-600/50 hover:-translate-y-0.5"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-emerald-700 hover:bg-teal-700 rounded-xl px-3.5 py-2 shadow-sm shadow-emerald-950/40 transition-all hover:shadow-emerald-950/60 hover:-translate-y-0.5"
             >
               <span>Falar Comigo</span>
               <Send className="w-3.5 h-3.5 shrink-0" />
@@ -119,7 +119,7 @@ export function Navbar({ name }: NavbarProps) {
             <Link
               href="/contato"
               onClick={() => setIsOpen(false)}
-              className="flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-emerald-600 text-xs sm:text-sm font-semibold text-white hover:bg-emerald-500 shadow-md"
+              className="flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-emerald-700 text-xs sm:text-sm font-semibold text-white hover:bg-teal-700 shadow-md"
             >
               <span>Entrar em Contato</span>
               <ArrowRight className="w-4 h-4" />

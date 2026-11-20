@@ -1,12 +1,10 @@
-"use client";
-
-import React, { useCallback, useState } from "react";
 import Link from "next/link";
 import { Profile, SocialLink } from "@/types/portfolio";
 import { DynamicIcon } from "./DynamicIcon";
-import { Modal } from "./Modal";
+import { HeroBioButton } from "./HeroBioButton";
+import { HeroImage } from "./HeroImage";
 import { resolveAvatarUrl } from "@/lib/media";
-import { ArrowDown, Download, Eye, Sparkles, Briefcase, Award, CheckCircle2 } from "lucide-react";
+import { ArrowDown, Download, Sparkles, Briefcase, Award, CheckCircle2 } from "lucide-react";
 
 interface HeroProps {
   profile: Profile;
@@ -14,11 +12,7 @@ interface HeroProps {
 }
 
 export function Hero({ profile, socials }: HeroProps) {
-  const [bioOpen, setBioOpen] = useState(false);
-  const [imageOpen, setImageOpen] = useState(false);
   const avatarUrl = resolveAvatarUrl(profile.avatarUrl);
-  const closeBio = useCallback(() => setBioOpen(false), []);
-  const closeImage = useCallback(() => setImageOpen(false), []);
 
   return (
     <section className="relative min-h-[92vh] pt-2 sm:pt-3 pb-16 flex items-center justify-center overflow-hidden bg-gradient-to-b from-zinc-950 via-zinc-900 to-zinc-950 w-full px-4 sm:px-6 lg:px-8">
@@ -36,20 +30,7 @@ export function Hero({ profile, socials }: HeroProps) {
         {/* Profile Photo with Glow */}
         <div className="avatar-motion relative mb-6 sm:mb-8 rounded-full group shrink-0">
           <div className="absolute -inset-1.5 hidden bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-500 sm:block"></div>
-          <button
-            type="button"
-            onClick={() => setImageOpen(true)}
-            aria-label="Ampliar foto de perfil"
-            title="Ampliar foto de perfil"
-            className="relative block cursor-zoom-in rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-500"
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={avatarUrl}
-              alt={profile.name || "Avatar padrão"}
-              className="w-32 h-32 sm:w-44 sm:h-44 rounded-full object-cover object-top border-4 border-zinc-900 shadow-2xl"
-            />
-          </button>
+          <HeroImage src={avatarUrl} alt={profile.name || "Avatar padrão"} />
           <div className="absolute bottom-1 right-1 p-1.5 sm:p-2 bg-zinc-900 border border-zinc-700 rounded-full text-emerald-400 shadow-md">
             <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
           </div>
@@ -73,14 +54,7 @@ export function Hero({ profile, socials }: HeroProps) {
 
         {/* Call to Actions - responsive flex */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full sm:w-auto mb-8 sm:mb-10 px-4 sm:px-0">
-          <button
-            type="button"
-            onClick={() => setBioOpen(true)}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs sm:text-sm shadow-lg shadow-emerald-600/30 transition-all hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
-          >
-            <Eye className="w-4 h-4 shrink-0" />
-            <span>Visualizar sobre mim</span>
-          </button>
+          <HeroBioButton bio={profile.aboutMe} />
 
           <Link
             href="/projetos"
@@ -171,26 +145,6 @@ export function Hero({ profile, socials }: HeroProps) {
           </div>
         </div>
       </div>
-
-      <Modal open={bioOpen} onClose={closeBio} title="Sobre mim">
-        <p className="whitespace-pre-line text-sm sm:text-base leading-relaxed text-zinc-300">
-          {profile.aboutMe}
-        </p>
-      </Modal>
-
-      <Modal
-        open={imageOpen}
-        onClose={closeImage}
-        title="Foto de perfil"
-        wide
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={avatarUrl}
-          alt={profile.name || "Avatar padrão"}
-          className="mx-auto max-h-[70vh] w-auto max-w-full rounded-2xl border border-zinc-800 object-contain"
-        />
-      </Modal>
     </section>
   );
 }
