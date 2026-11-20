@@ -1,0 +1,16 @@
+[
+  {
+    "id": "admin-default",
+    "name": "Administrador",
+    "email": "admin@portfolio.com",
+    "passwordHash": "$2b$10$pK3itptJrav43lqnyJ0YMuIrO62UEAObb6eZvcDhgMd0rW6x7/USO",
+    "createdAt": "2026-11-20T14:05:15.785Z"
+  },
+  {
+    "id": "admin-1795183523618-bxbsb",
+    "name": "Novo Administrador",
+    "email": "novo@portfolio.com",
+    "passwordHash": "$2b$10$j3P5IFgL7a7/H2Ibz.KbaO1gH1lyGrlcEuY6XvlpBO1sCgL8jCUq2",
+    "createdAt": "2026-11-20T14:05:23.618Z"
+  }
+]
