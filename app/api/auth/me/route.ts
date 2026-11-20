@@ -1,7 +1,11 @@
-import { NextResponse } from "next/server";
+import { NextResponse, connection } from "next/server";
 import { getSessionUser } from "@/lib/auth";
 
 export async function GET() {
+  // A sessão é por requisição. Sair do prerender evita que a private cache
+  // de getSessionUser fique pendente durante a geração de páginas estáticas.
+  await connection();
+
   try {
     const session = await getSessionUser();
     if (!session) {

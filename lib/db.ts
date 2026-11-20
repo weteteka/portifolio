@@ -1,5 +1,4 @@
 import { defaultPortfolioData } from "./default-data";
-import { Prisma } from "./generated/prisma";
 import { prisma } from "./prisma";
 import type {
   Experience,
@@ -8,6 +7,7 @@ import type {
   Skill,
   Tool,
 } from "../types/portfolio";
+import { Prisma } from "@prisma/client";
 
 export { defaultPortfolioData };
 
@@ -174,5 +174,10 @@ async function replacePortfolioData(tx: PortfolioTx, data: PortfolioData) {
 }
 
 export async function savePortfolioData(data: PortfolioData): Promise<void> {
-  await prisma.$transaction((tx) => replacePortfolioData(tx, data));
+  // O banco pode ser remoto (ex.: Prisma Postgres), onde cada query tem latência
+  // maior. O padrão de 5s do interactive transaction estoura ao gravar os dados.
+  await prisma.$transaction((tx) => replacePortfolioData(tx, data), {
+    maxWait: 10000,
+    timeout: 30000,
+  });
 }
