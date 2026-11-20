@@ -1,13 +1,15 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Check,
   ChevronLeft,
   ChevronRight,
   FileText,
+  Loader2,
   Mail,
   Save,
+  Upload,
   User,
   X,
 } from "lucide-react";
@@ -78,6 +80,9 @@ function ProfileModalForm({
 }: ProfileModalFormProps) {
   const [draft, setDraft] = useState<Profile>(profile);
   const [step, setStep] = useState(0);
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState("");
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const isLastStep = step === STEPS.length - 1;
 
   useEffect(() => {
@@ -90,6 +95,43 @@ function ProfileModalForm({
 
   const update = <K extends keyof Profile>(key: K, value: Profile[K]) => {
     setDraft((current) => ({ ...current, [key]: value }));
+  };
+
+  const handleAvatarUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    setUploadError("");
+
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+      const result = (await response.json()) as {
+        url?: string;
+        error?: string;
+      };
+
+      if (!response.ok || !result.url) {
+        throw new Error(result.error || "Falha ao enviar a imagem.");
+      }
+
+      update("avatarUrl", result.url);
+    } catch (error) {
+      setUploadError(
+        error instanceof Error ? error.message : "Erro ao enviar a imagem."
+      );
+    } finally {
+      setUploading(false);
+      event.target.value = "";
+    }
   };
 
   const goToStep = (index: number) => {
@@ -229,21 +271,48 @@ function ProfileModalForm({
                 />
               </Field>
 
-              <Field label="URL da Foto de Perfil" className="sm:col-span-2">
-                <div className="flex gap-2.5 items-center">
+              <Field label="Foto de Perfil" className="sm:col-span-2">
+                <div className="flex flex-col sm:flex-row gap-2.5 items-stretch sm:items-center">
                   <input
                     type="text"
                     value={draft.avatarUrl}
                     onChange={(event) => update("avatarUrl", event.target.value)}
+                    placeholder="URL da imagem"
                     className={`${inputClassName} flex-1 min-w-0`}
                   />
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/png,image/jpeg,image/webp,image/gif"
+                    className="hidden"
+                    onChange={handleAvatarUpload}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={uploading}
+                    className="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-xs font-medium text-zinc-200 transition-colors disabled:opacity-60"
+                  >
+                    {uploading ? (
+                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                    ) : (
+                      <Upload className="w-3.5 h-3.5" />
+                    )}
+                    {uploading ? "Enviando..." : "Enviar"}
+                  </button>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={resolveAvatarUrl(draft.avatarUrl)}
                     alt="Prévia do avatar"
-                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full object-cover border border-zinc-700 shrink-0"
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full object-cover border border-zinc-700 shrink-0 self-center"
                   />
                 </div>
+                {uploadError && (
+                  <p className="mt-2 text-[11px] text-red-400">{uploadError}</p>
+                )}
+                <p className="mt-2 text-[11px] text-zinc-500">
+                  PNG, JPG, WEBP ou GIF até 5 MB. Envio via Cloudinary quando configurado.
+                </p>
               </Field>
             </div>
           )}

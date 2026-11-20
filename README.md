@@ -16,6 +16,14 @@ Outros comandos úteis: `npm run db:deploy` (aplica migrations em produção), `
 
 > A porta host padrão é **5434** porque a porta 5432 já está ocupada por outro container neste ambiente. Ajuste `POSTGRES_PORT` e `DATABASE_URL` no `.env` se necessário.
 
+## Upload de imagens
+
+Configure `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY` e `CLOUDINARY_API_SECRET` no `.env` (ou nas variáveis de ambiente da Vercel) para enviar a foto de perfil via Cloudinary. Sem essas variáveis, o upload local salva em `public/uploads/` e funciona apenas fora de ambientes serverless.
+
+## Formulário de contato
+
+O formulário da página `/contato` envia mensagens pela API do Brevo. Configure `BREVO_API_KEY`, `BREVO_FROM` (remetente verificado; aceita `Nome <email>`) e, opcionalmente, `BREVO_API_URL` (padrão: `https://api.brevo.com/v3/smtp/email`). A mensagem é entregue ao e-mail cadastrado no perfil do portfólio, com `replyTo` para quem preencheu o formulário. Sem as credenciais, a API retorna `503` e o formulário exibe uma mensagem de indisponibilidade.
+
 ## Getting Started
 
 First, run the development server:

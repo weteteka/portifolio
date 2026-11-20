@@ -1,5 +1,6 @@
 import { Profile, SocialLink } from "@/types/portfolio";
 import { DynamicIcon } from "./DynamicIcon";
+import { ContactForm } from "./ContactForm";
 import { ArrowUpRight, Mail, MessageSquare, Phone } from "lucide-react";
 
 interface ContactSectionProps {
@@ -72,6 +73,16 @@ export function ContactSection({ profile, socials }: ContactSectionProps) {
               </span>
               <ArrowUpRight className="h-4 w-4 shrink-0 text-zinc-600 transition-colors group-hover:text-cyan-400" />
             </a>
+          </div>
+
+          <div className="mt-12 sm:mt-14">
+            <div className="mb-4 flex items-center gap-3">
+              <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-zinc-400">
+                Ou envie uma mensagem
+              </h3>
+              <span className="h-px flex-1 bg-zinc-800" />
+            </div>
+            <ContactForm />
           </div>
         </div>
 
