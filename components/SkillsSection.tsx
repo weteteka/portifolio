@@ -19,7 +19,7 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
     "DevOps & Cloud",
     "Mobile & Outros",
     "UI/UX & Design",
-    "Design & Prototipagem",
+    "Prototipagem",
     "Banco de Dados",
     "Testes & Qualidade",
     "Ferramentas & Utilitários",

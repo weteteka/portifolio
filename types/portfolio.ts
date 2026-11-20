@@ -17,7 +17,7 @@ export interface Profile {
 export interface Skill {
   id: string;
   name: string;
-  category: "Frontend" | "Backend" | "DevOps & Cloud" | "Mobile & Outros";
+  category: "Frontend" | "Backend" | "DevOps & Cloud" | "Mobile & Outros" | "UI/UX & Design" | "Design & Prototipagem" | "Banco de Dados" | "Testes & Qualidade" | "Ferramentas & Utilitários" | "Linguagens de Programação" | "Frameworks & Bibliotecas" | "Outros";
   level: number; // 0 to 100
   highlight: boolean;
 }
@@ -39,7 +39,7 @@ export interface Language {
 export interface Tool {
   id: string;
   name: string;
-  category: "Desenvolvimento" | "DevOps & Cloud" | "Design & Prototipagem" | "Produtividade";
+  category: "Desenvolvimento" | "DevOps & Cloud" | "Design & Prototipagem" | "Produtividade" | "Comunicação" | "Colaboração" | "Banco de Dados" | "Testes & Qualidade" | "Ferramentas & Utilitários" | "Outros";
   iconName?: string;
 }
 

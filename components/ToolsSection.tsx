@@ -28,6 +28,14 @@ const categoryIcons: Record<Skill["category"], string> = {
   Backend: "Server",
   "DevOps & Cloud": "Cloud",
   "Mobile & Outros": "Smartphone",
+  "UI/UX & Design": "Palette",
+  "Design & Prototipagem": "Layout",
+  "Banco de Dados": "Database",
+  "Testes & Qualidade": "CheckCircle2",
+  "Ferramentas & Utilitários": "Tool",
+  "Linguagens de Programação": "Braces",
+  "Frameworks & Bibliotecas": "Layers",
+  Outros: "Box",
 };
 
 function getTechnologyIcon(skill: Skill) {
