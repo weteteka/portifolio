@@ -1,10 +1,16 @@
 import { NextResponse } from "next/server";
-import { verifyPassword, createSession, ensureInitialAdmin } from "@/lib/auth";
+import { verifyPassword, createSession, hasAnyUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
 export async function POST(request: Request) {
   try {
-    await ensureInitialAdmin();
+    if (!(await hasAnyUser())) {
+      return NextResponse.json(
+        { error: "Nenhuma conta encontrada. Conclua a configuração inicial primeiro." },
+        { status: 403 }
+      );
+    }
+
     const body = await request.json();
     const { email, password } = body;
 

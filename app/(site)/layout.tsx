@@ -1,4 +1,6 @@
+import { redirect } from "next/navigation";
 import { getPortfolioData } from "@/lib/db";
+import { hasAnyUser } from "@/lib/auth";
 import { Navbar } from "@/components/Navbar";
 
 export const instant = false;
@@ -8,6 +10,10 @@ export default async function SiteLayout({
 }: {
   children: React.ReactNode;
 }) {
+  if (!(await hasAnyUser())) {
+    redirect("/admin/setup");
+  }
+
   const data = await getPortfolioData();
 
   return (

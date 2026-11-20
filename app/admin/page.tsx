@@ -1,11 +1,15 @@
 import { redirect } from "next/navigation";
-import { getSessionUser } from "@/lib/auth";
+import { getSessionUser, hasAnyUser } from "@/lib/auth";
 import { getPortfolioData } from "@/lib/db";
 import { AdminDashboard } from "./AdminDashboard";
 
 export const instant = false;
 
 export default async function AdminPage() {
+  if (!(await hasAnyUser())) {
+    redirect("/admin/setup");
+  }
+
   const session = await getSessionUser();
 
   if (!session) {

@@ -9,11 +9,9 @@ import {
   MapPin,
   Send,
   MessageSquare,
-  Shield,
   ArrowUp,
   CheckCircle,
 } from "lucide-react";
-import Link from "next/link";
 
 interface ContactSectionProps {
   profile: Profile;
@@ -238,14 +236,6 @@ export function ContactSection({ profile, socials }: ContactSectionProps) {
           <p>© {new Date().getFullYear()} {profile.name}. Todos os direitos reservados.</p>
 
           <div className="flex items-center gap-4">
-            <Link
-              href="/admin"
-              className="inline-flex items-center gap-1.5 text-zinc-400 hover:text-emerald-400 transition-colors"
-            >
-              <Shield className="w-3.5 h-3.5" />
-              <span>Painel Admin</span>
-            </Link>
-
             <button
               onClick={scrollToTop}
               className="p-2 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-zinc-400 hover:text-white transition-colors"

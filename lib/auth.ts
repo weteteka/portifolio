@@ -63,6 +63,8 @@ export async function createSession(user: { id: string; email: string; name: str
 }
 
 export async function getSessionUser(): Promise<SessionPayload | null> {
+  "use cache: private";
+
   try {
     const cookieStore = await cookies();
     const token = cookieStore.get(SESSION_COOKIE)?.value;
@@ -78,17 +80,7 @@ export async function logoutUser(): Promise<void> {
   cookieStore.delete(SESSION_COOKIE);
 }
 
-export async function ensureInitialAdmin(): Promise<void> {
-  const existingUser = await prisma.user.findFirst();
-  if (existingUser) return;
-
-  // Seed default admin account: admin@portfolio.com / admin123
-  await prisma.user.create({
-    data: {
-      id: "admin-default",
-      name: "Administrador",
-      email: "admin@portfolio.com",
-      passwordHash: await hashPassword("admin123"),
-    },
-  });
+export async function hasAnyUser(): Promise<boolean> {
+  const count = await prisma.user.count();
+  return count > 0;
 }

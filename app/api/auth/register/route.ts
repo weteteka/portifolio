@@ -1,9 +1,16 @@
 import { NextResponse } from "next/server";
-import { hashPassword, createSession } from "@/lib/auth";
+import { hashPassword, createSession, hasAnyUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
 export async function POST(request: Request) {
   try {
+    if (await hasAnyUser()) {
+      return NextResponse.json(
+        { error: "O cadastro de novas contas está desabilitado." },
+        { status: 403 }
+      );
+    }
+
     const body = await request.json();
     const { name, email, password } = body;
 
