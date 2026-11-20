@@ -13,8 +13,10 @@ import {
   Project,
   Experience,
   SocialLink,
+  Profile,
 } from "@/types/portfolio";
 import { DynamicIcon, ICON_OPTIONS } from "@/components/DynamicIcon";
+import { ProfileModal } from "@/components/ProfileModal";
 import {
   User,
   Code2,
@@ -36,6 +38,7 @@ import {
   AlertCircle,
   Loader2,
   X,
+  Menu,
 } from "lucide-react";
 
 interface AdminDashboardProps {
@@ -63,6 +66,8 @@ export function AdminDashboard({ initialData, user }: AdminDashboardProps) {
   const [data, setData] = useState<PortfolioData>(initialData);
   const [activeTab, setActiveTab] = useState<TabType>("profile");
   const [saving, setSaving] = useState(false);
+  const [profileModalOpen, setProfileModalOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
   // Modal / Form state for item editing
@@ -102,6 +107,13 @@ export function AdminDashboard({ initialData, user }: AdminDashboardProps) {
     } finally {
       setSaving(false);
     }
+  };
+
+  const handleSaveProfile = async (profile: Profile) => {
+    const updated: PortfolioData = { ...data, profile };
+    setData(updated);
+    setProfileModalOpen(false);
+    await handleSaveAll(updated);
   };
 
   const handleResetData = async () => {
@@ -403,6 +415,13 @@ export function AdminDashboard({ initialData, user }: AdminDashboardProps) {
       {/* Top Header */}
       <header className="sticky top-0 z-40 bg-zinc-900/95 border-b border-zinc-800 backdrop-blur-md px-3 sm:px-8 py-3 flex items-center justify-between gap-2 w-full">
         <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+          <button
+            onClick={() => setSidebarOpen(true)}
+            className="lg:hidden p-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-300 transition-colors shrink-0"
+            aria-label="Abrir menu de seções"
+          >
+            <Menu className="w-4 h-4" />
+          </button>
           <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-500 flex items-center justify-center font-bold text-white shadow-md shadow-emerald-500/20 shrink-0 text-sm sm:text-base">
             A
           </div>
@@ -422,6 +441,15 @@ export function AdminDashboard({ initialData, user }: AdminDashboardProps) {
 
         {/* Action Controls in Header */}
         <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+          <button
+            onClick={() => setProfileModalOpen(true)}
+            className="inline-flex items-center gap-1.5 p-2 sm:px-3 sm:py-1.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-medium transition-colors"
+            title="Editar dados pessoais"
+          >
+            <User className="w-3.5 h-3.5" />
+            <span className="hidden md:inline">Meu Perfil</span>
+          </button>
+
           <Link
             href="/"
             target="_blank"
@@ -491,36 +519,65 @@ export function AdminDashboard({ initialData, user }: AdminDashboardProps) {
 
       {/* Main Admin Content */}
       <div className="flex-1 max-w-7xl mx-auto w-full px-3 sm:px-6 lg:px-8 py-5 sm:py-8 flex flex-col lg:flex-row gap-5 lg:gap-8">
-        {/* Mobile Horizontal Tabs (< 1024px) */}
-        <div className="lg:hidden w-full overflow-x-auto pb-1 -mx-1 px-1 flex gap-1.5 scrollbar-none">
-          {navTabs.map((tab) => {
-            const Icon = tab.icon;
-            const isActive = activeTab === tab.id;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id as TabType)}
-                className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-medium shrink-0 whitespace-nowrap transition-all ${
-                  isActive
-                    ? "bg-emerald-600 text-white font-semibold shadow-md shadow-emerald-600/30"
-                    : "bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white"
-                }`}
-              >
-                <Icon className="w-3.5 h-3.5 shrink-0" />
-                <span>{tab.label}</span>
-                {tab.count !== undefined && (
-                  <span
-                    className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
-                      isActive ? "bg-emerald-700 text-white" : "bg-zinc-800 text-zinc-400"
-                    }`}
-                  >
-                    {tab.count}
-                  </span>
-                )}
-              </button>
-            );
-          })}
-        </div>
+        {/* Mobile Sidebar Drawer (< 1024px) */}
+        {sidebarOpen && (
+          <div className="lg:hidden fixed inset-0 z-50 flex" role="dialog" aria-modal="true" aria-label="Menu de seções">
+            <button
+              type="button"
+              className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+              onClick={() => setSidebarOpen(false)}
+              aria-label="Fechar menu"
+            />
+            <aside className="relative w-72 max-w-[85vw] h-full bg-zinc-900 border-r border-zinc-800 p-3 shadow-2xl animate-in slide-in-from-left duration-200 overflow-y-auto">
+              <div className="flex items-center justify-between px-2 py-2 mb-2">
+                <div className="text-[11px] font-mono uppercase text-zinc-500 font-semibold tracking-wider">
+                  Seções do Portfólio
+                </div>
+                <button
+                  onClick={() => setSidebarOpen(false)}
+                  className="p-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800"
+                  aria-label="Fechar menu"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+              <div className="space-y-1">
+                {navTabs.map((tab) => {
+                  const Icon = tab.icon;
+                  const isActive = activeTab === tab.id;
+                  return (
+                    <button
+                      key={tab.id}
+                      onClick={() => {
+                        setActiveTab(tab.id as TabType);
+                        setSidebarOpen(false);
+                      }}
+                      className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium transition-all ${
+                        isActive
+                          ? "bg-emerald-600 text-white font-semibold shadow-md shadow-emerald-600/30"
+                          : "text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/60"
+                      }`}
+                    >
+                      <div className="flex items-center gap-2.5 truncate">
+                        <Icon className="w-4 h-4 shrink-0" />
+                        <span className="truncate">{tab.label}</span>
+                      </div>
+                      {tab.count !== undefined && (
+                        <span
+                          className={`text-[11px] font-mono px-2 py-0.5 rounded-full ${
+                            isActive ? "bg-emerald-700 text-emerald-100" : "bg-zinc-800 text-zinc-400"
+                          }`}
+                        >
+                          {tab.count}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </aside>
+          </div>
+        )}
 
         {/* Desktop Sidebar Nav (>= 1024px) */}
         <aside className="hidden lg:block lg:w-64 shrink-0">
@@ -569,234 +626,77 @@ export function AdminDashboard({ initialData, user }: AdminDashboardProps) {
                 <div>
                   <h2 className="text-lg sm:text-xl font-bold text-white">Perfil & Sobre Mim</h2>
                   <p className="text-xs text-zinc-400 mt-0.5">
-                    Edite as informações pessoais, dados de contato, foto e biografia.
+                    Visualize e edite as informações pessoais, dados de contato, foto e biografia.
                   </p>
                 </div>
                 <button
-                  onClick={() => handleSaveAll()}
-                  disabled={saving}
+                  onClick={() => setProfileModalOpen(true)}
                   className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-xs font-semibold text-white shadow-md shadow-emerald-600/30 transition-all w-full sm:w-auto"
                 >
-                  <Save className="w-4 h-4" />
-                  <span>Salvar Perfil</span>
+                  <Edit className="w-4 h-4" />
+                  <span>Editar dados pessoais</span>
                 </button>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
-                <div>
-                  <label className="block text-xs font-medium text-zinc-300 mb-1.5">
-                    Nome Completo
-                  </label>
-                  <input
-                    type="text"
-                    value={data.profile.name}
-                    onChange={(e) =>
-                      setData({ ...data, profile: { ...data.profile, name: e.target.value } })
-                    }
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-500"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-medium text-zinc-300 mb-1.5">
-                    Título / Cargo Profissional
-                  </label>
-                  <input
-                    type="text"
-                    value={data.profile.role}
-                    onChange={(e) =>
-                      setData({ ...data, profile: { ...data.profile, role: e.target.value } })
-                    }
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-500"
-                  />
-                </div>
-
-                <div className="sm:col-span-2">
-                  <label className="block text-xs font-medium text-zinc-300 mb-1.5">
-                    Tagline (Slogan curto de destaque no topo)
-                  </label>
-                  <input
-                    type="text"
-                    value={data.profile.tagline}
-                    onChange={(e) =>
-                      setData({ ...data, profile: { ...data.profile, tagline: e.target.value } })
-                    }
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-500"
-                  />
-                </div>
-
-                <div className="sm:col-span-2">
-                  <label className="block text-xs font-medium text-zinc-300 mb-1.5">
-                    URL da Foto de Perfil / Avatar
-                  </label>
-                  <div className="flex gap-2.5 items-center">
-                    <input
-                      type="text"
-                      value={data.profile.avatarUrl}
-                      onChange={(e) =>
-                        setData({ ...data, profile: { ...data.profile, avatarUrl: e.target.value } })
-                      }
-                      className="flex-1 px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-500 min-w-0"
-                    />
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={data.profile.avatarUrl}
-                      alt="Avatar preview"
-                      className="w-9 h-9 sm:w-10 sm:h-10 rounded-full object-cover border border-zinc-700 shrink-0"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-medium text-zinc-300 mb-1.5">
-                    E-mail de Contato
-                  </label>
-                  <input
-                    type="email"
-                    value={data.profile.email}
-                    onChange={(e) =>
-                      setData({ ...data, profile: { ...data.profile, email: e.target.value } })
-                    }
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-500"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-medium text-zinc-300 mb-1.5">
-                    Telefone / WhatsApp
-                  </label>
-                  <input
-                    type="text"
-                    value={data.profile.phone}
-                    onChange={(e) =>
-                      setData({ ...data, profile: { ...data.profile, phone: e.target.value } })
-                    }
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-500"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-medium text-zinc-300 mb-1.5">
-                    Localização (Cidade, País)
-                  </label>
-                  <input
-                    type="text"
-                    value={data.profile.location}
-                    onChange={(e) =>
-                      setData({ ...data, profile: { ...data.profile, location: e.target.value } })
-                    }
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-500"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-medium text-zinc-300 mb-1.5">
-                    Status de Disponibilidade
-                  </label>
-                  <input
-                    type="text"
-                    value={data.profile.availability}
-                    onChange={(e) =>
-                      setData({
-                        ...data,
-                        profile: { ...data.profile, availability: e.target.value },
-                      })
-                    }
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-500"
-                  />
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:col-span-2">
-                  <div>
-                    <label className="block text-xs font-medium text-zinc-300 mb-1.5">
-                      Anos de Experiência
-                    </label>
-                    <input
-                      type="number"
-                      value={data.profile.yearsOfExperience}
-                      onChange={(e) =>
-                        setData({
-                          ...data,
-                          profile: {
-                            ...data.profile,
-                            yearsOfExperience: Number(e.target.value) || 0,
-                          },
-                        })
-                      }
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-500"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-medium text-zinc-300 mb-1.5">
-                      Projetos Concluídos
-                    </label>
-                    <input
-                      type="number"
-                      value={data.profile.projectsCompleted}
-                      onChange={(e) =>
-                        setData({
-                          ...data,
-                          profile: {
-                            ...data.profile,
-                            projectsCompleted: Number(e.target.value) || 0,
-                          },
-                        })
-                      }
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-500"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-medium text-zinc-300 mb-1.5">
-                      Clientes Atendidos
-                    </label>
-                    <input
-                      type="number"
-                      value={data.profile.happyClients}
-                      onChange={(e) =>
-                        setData({
-                          ...data,
-                          profile: {
-                            ...data.profile,
-                            happyClients: Number(e.target.value) || 0,
-                          },
-                        })
-                      }
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-500"
-                    />
-                  </div>
-                </div>
-
-                <div className="sm:col-span-2">
-                  <label className="block text-xs font-medium text-zinc-300 mb-1.5">
-                    Link do Currículo (PDF ou link externo)
-                  </label>
-                  <input
-                    type="text"
-                    value={data.profile.resumeUrl}
-                    onChange={(e) =>
-                      setData({ ...data, profile: { ...data.profile, resumeUrl: e.target.value } })
-                    }
-                    placeholder="https://exemplo.com/curriculo.pdf"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-500"
-                  />
-                </div>
-
-                <div className="sm:col-span-2">
-                  <label className="block text-xs font-medium text-zinc-300 mb-1.5">
-                    Biografia Detalhada (Sobre Mim)
-                  </label>
-                  <textarea
-                    rows={6}
-                    value={data.profile.aboutMe}
-                    onChange={(e) =>
-                      setData({ ...data, profile: { ...data.profile, aboutMe: e.target.value } })
-                    }
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-500 leading-relaxed"
-                  />
+              <div className="flex flex-col sm:flex-row gap-5 items-start sm:items-center">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={data.profile.avatarUrl}
+                  alt="Foto de perfil"
+                  className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover border border-zinc-700 shadow-lg shrink-0"
+                />
+                <div className="min-w-0 space-y-1">
+                  <h3 className="text-lg sm:text-xl font-bold text-white truncate">{data.profile.name}</h3>
+                  <p className="text-sm text-emerald-400 font-medium">{data.profile.role}</p>
+                  <p className="text-xs text-zinc-400">{data.profile.tagline}</p>
                 </div>
               </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-xs sm:text-sm">
+                <div className="bg-zinc-950/60 border border-zinc-800 rounded-xl p-3.5">
+                  <p className="text-[10px] uppercase tracking-wider font-mono text-zinc-500 mb-1">E-mail</p>
+                  <p className="text-zinc-200 break-all">{data.profile.email || "-"}</p>
+                </div>
+                <div className="bg-zinc-950/60 border border-zinc-800 rounded-xl p-3.5">
+                  <p className="text-[10px] uppercase tracking-wider font-mono text-zinc-500 mb-1">Telefone / WhatsApp</p>
+                  <p className="text-zinc-200">{data.profile.phone || "-"}</p>
+                </div>
+                <div className="bg-zinc-950/60 border border-zinc-800 rounded-xl p-3.5">
+                  <p className="text-[10px] uppercase tracking-wider font-mono text-zinc-500 mb-1">Localização</p>
+                  <p className="text-zinc-200">{data.profile.location || "-"}</p>
+                </div>
+                <div className="bg-zinc-950/60 border border-zinc-800 rounded-xl p-3.5">
+                  <p className="text-[10px] uppercase tracking-wider font-mono text-zinc-500 mb-1">Disponibilidade</p>
+                  <p className="text-zinc-200">{data.profile.availability || "-"}</p>
+                </div>
+                <div className="bg-zinc-950/60 border border-zinc-800 rounded-xl p-3.5">
+                  <p className="text-[10px] uppercase tracking-wider font-mono text-zinc-500 mb-1">Anos de experiência</p>
+                  <p className="text-zinc-200">{data.profile.yearsOfExperience}</p>
+                </div>
+                <div className="bg-zinc-950/60 border border-zinc-800 rounded-xl p-3.5">
+                  <p className="text-[10px] uppercase tracking-wider font-mono text-zinc-500 mb-1">Projetos / Clientes</p>
+                  <p className="text-zinc-200">{data.profile.projectsCompleted} projetos · {data.profile.happyClients} clientes</p>
+                </div>
+              </div>
+
+              {data.profile.aboutMe && (
+                <div className="bg-zinc-950/60 border border-zinc-800 rounded-xl p-3.5">
+                  <p className="text-[10px] uppercase tracking-wider font-mono text-zinc-500 mb-1.5">Biografia</p>
+                  <p className="text-xs sm:text-sm text-zinc-300 whitespace-pre-line leading-relaxed">{data.profile.aboutMe}</p>
+                </div>
+              )}
+
+              {data.profile.resumeUrl && (
+                <a
+                  href={data.profile.resumeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs text-emerald-400 hover:text-emerald-300"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  Ver currículo
+                </a>
+              )}
             </div>
           )}
 
@@ -2117,6 +2017,14 @@ export function AdminDashboard({ initialData, user }: AdminDashboardProps) {
           </div>
         </div>
       )}
+
+      <ProfileModal
+        open={profileModalOpen}
+        profile={data.profile}
+        saving={saving}
+        onClose={() => setProfileModalOpen(false)}
+        onSave={handleSaveProfile}
+      />
     </div>
   );
 }

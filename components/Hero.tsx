@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { Profile, SocialLink } from "@/types/portfolio";
 import { DynamicIcon } from "./DynamicIcon";
 import { ArrowDown, Download, Sparkles, Briefcase, Award, CheckCircle2 } from "lucide-react";
@@ -56,13 +57,13 @@ export function Hero({ profile, socials }: HeroProps) {
 
         {/* Call to Actions - responsive flex */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full sm:w-auto mb-8 sm:mb-10 px-4 sm:px-0">
-          <a
-            href="#projetos"
+          <Link
+            href="/projetos"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs sm:text-sm shadow-lg shadow-emerald-600/30 transition-all hover:-translate-y-0.5"
           >
             <span>Ver Meus Projetos</span>
             <ArrowDown className="w-4 h-4 shrink-0" />
-          </a>
+          </Link>
 
           {profile.resumeUrl && (
             <a
@@ -76,12 +77,12 @@ export function Hero({ profile, socials }: HeroProps) {
             </a>
           )}
 
-          <a
-            href="#contato"
+          <Link
+            href="/contato"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-zinc-900/60 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 font-medium text-xs sm:text-sm transition-colors"
           >
             <span>Falar Comigo</span>
-          </a>
+          </Link>
         </div>
 
         {/* Social Links Bar */}
