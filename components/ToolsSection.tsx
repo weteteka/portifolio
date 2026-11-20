@@ -121,21 +121,23 @@ export function ToolsSection({ tools, skills }: ToolsSectionProps) {
             </span>
           </div>
 
-          {/* Category Filter */}
-          <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 mb-8 sm:mb-10">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setSelectedCategory(cat)}
-                className={`px-3 sm:px-4 py-1.5 rounded-full text-xs font-medium transition-all ${
-                  selectedCategory === cat
-                    ? "bg-teal-600 text-white shadow-md shadow-teal-600/30"
-                    : "bg-zinc-950/80 hover:bg-zinc-800 text-zinc-400 hover:text-zinc-200 border border-zinc-800"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
+          {/* Category Filter - horizontal scroll on small screens */}
+          <div className="category-scroll -mx-4 mb-8 overflow-x-auto pb-2 sm:-mx-6 sm:mb-10 lg:-mx-8">
+            <div className="flex w-max min-w-full items-center justify-center gap-1.5 px-4 sm:gap-2 sm:px-6 lg:px-8">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setSelectedCategory(cat)}
+                  className={`shrink-0 whitespace-nowrap px-3 sm:px-4 py-1.5 rounded-full text-xs font-medium transition-all ${
+                    selectedCategory === cat
+                      ? "bg-teal-600 text-white shadow-md shadow-teal-600/30"
+                      : "bg-zinc-950/80 hover:bg-zinc-800 text-zinc-400 hover:text-zinc-200 border border-zinc-800"
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* Tools Grid */}

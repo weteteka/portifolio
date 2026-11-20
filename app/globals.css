@@ -48,6 +48,25 @@ body {
   background: #3f3f46;
 }
 
+/* Discreet horizontal scrollbar for category filters */
+.category-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #3f3f46 transparent;
+}
+
+.category-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+
+.category-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.category-scroll::-webkit-scrollbar-thumb {
+  background: #3f3f46;
+  border-radius: 9999px;
+}
+
 /* Animated pseudo-elements for cards on small screens */
 @keyframes card-aurora-rotate {
   from {
