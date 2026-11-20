@@ -7,7 +7,7 @@ export default async function FerramentasPage() {
 
   return (
     <SectionLayout currentHref="/ferramentas">
-      <ToolsSection tools={data.tools} />
+      <ToolsSection tools={data.tools} skills={data.skills} />
     </SectionLayout>
   );
 }

@@ -4,6 +4,12 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ShieldPlus, Lock, Mail, User, Loader2, AlertCircle } from "lucide-react";
 
+const authBackgroundStyle = {
+  backgroundImage: "url('/auth-background.svg')",
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+};
+
 export function SetupForm() {
   const router = useRouter();
   const [name, setName] = useState("");
@@ -56,8 +62,15 @@ export function SetupForm() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-950 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 w-full text-zinc-100">
-      <div className="w-full max-w-md">
+    <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-zinc-950 px-4 py-16 sm:px-6 lg:px-8 w-full text-zinc-100">
+      <div aria-hidden className="pointer-events-none absolute inset-0">
+        <div className="absolute inset-0" style={authBackgroundStyle} />
+        <div className="absolute inset-0 bg-zinc-950/60" />
+        <div className="absolute -left-40 top-1/4 h-96 w-96 rounded-full bg-emerald-500/10 blur-3xl" />
+        <div className="absolute -right-32 bottom-0 h-[28rem] w-[28rem] rounded-full bg-cyan-500/10 blur-3xl" />
+      </div>
+
+      <div className="relative z-10 w-full max-w-md">
         <div className="text-center mb-8">
           <div className="w-14 h-14 sm:w-16 sm:h-16 mx-auto rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-500 flex items-center justify-center shadow-lg shadow-emerald-500/20 mb-5">
             <ShieldPlus className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
@@ -70,7 +83,7 @@ export function SetupForm() {
           </p>
         </div>
 
-        <div className="bg-zinc-900/70 border border-zinc-800 rounded-2xl p-6 sm:p-8 shadow-xl shadow-black/20">
+        <div className="auth-card-motion overflow-hidden bg-zinc-900/80 border border-zinc-800 rounded-2xl p-6 sm:p-8 shadow-xl shadow-black/30 backdrop-blur">
           <form onSubmit={handleSubmit} className="space-y-5">
             {error && (
               <div className="flex items-start gap-2 p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-sm">

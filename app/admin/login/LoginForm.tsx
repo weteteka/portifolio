@@ -18,10 +18,10 @@ import {
 const inputClassName =
   "w-full rounded-xl border border-zinc-800 bg-zinc-950/80 py-3 pl-11 pr-11 text-sm text-white placeholder-zinc-600 transition-all outline-none focus:border-emerald-500/60 focus:ring-2 focus:ring-emerald-500/15";
 
-const backgroundGridStyle = {
-  backgroundImage:
-    "linear-gradient(to right, rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.035) 1px, transparent 1px)",
-  backgroundSize: "48px 48px",
+const authBackgroundStyle = {
+  backgroundImage: "url('/auth-background.svg')",
+  backgroundSize: "cover",
+  backgroundPosition: "center",
 };
 
 export function LoginForm() {
@@ -66,7 +66,8 @@ export function LoginForm() {
   return (
     <div className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-zinc-950 px-4 py-16 text-zinc-100 sm:px-6 lg:px-8">
       <div aria-hidden className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-0 opacity-70" style={backgroundGridStyle} />
+        <div className="absolute inset-0" style={authBackgroundStyle} />
+        <div className="absolute inset-0 bg-zinc-950/55" />
         <div className="absolute -left-40 top-1/4 h-96 w-96 rounded-full bg-emerald-500/10 blur-3xl" />
         <div className="absolute -right-32 bottom-0 h-[28rem] w-[28rem] rounded-full bg-cyan-500/10 blur-3xl" />
       </div>
@@ -122,7 +123,7 @@ export function LoginForm() {
           </div>
         </section>
 
-        <section className="relative overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900/80 p-6 shadow-2xl shadow-black/40 backdrop-blur sm:p-8">
+        <section className="auth-card-motion relative overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900/80 p-6 shadow-2xl shadow-black/40 backdrop-blur sm:p-8">
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-400 to-cyan-400" />
 
           <div className="mb-7 lg:hidden">
