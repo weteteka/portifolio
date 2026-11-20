@@ -6,7 +6,7 @@ export default async function SobrePage() {
   const data = await getPortfolioData();
 
   return (
-    <SectionLayout currentHref="/sobre">
+    <SectionLayout currentHref="/inicio">
       <AboutSection profile={data.profile} />
     </SectionLayout>
   );

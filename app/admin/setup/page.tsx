@@ -2,6 +2,8 @@ import { redirect } from "next/navigation";
 import { getSessionUser, hasAnyUser } from "@/lib/auth";
 import { SetupForm } from "./SetupForm";
 
+export const instant = false;
+
 export default async function AdminSetupPage() {
   if (await hasAnyUser()) {
     const session = await getSessionUser();

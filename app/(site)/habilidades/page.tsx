@@ -7,7 +7,7 @@ export default async function HabilidadesPage() {
 
   return (
     <SectionLayout currentHref="/habilidades">
-      <SkillsSection skills={data.skills} languages={data.languages} />
+      <SkillsSection skills={data.skills} />
     </SectionLayout>
   );
 }
