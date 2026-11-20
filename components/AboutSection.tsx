@@ -3,6 +3,7 @@
 import React from "react";
 import { Profile } from "@/types/portfolio";
 import { resolveAvatarUrl } from "@/lib/media";
+import { formatPhone } from "@/lib/phone";
 import { Mail, Phone, MapPin, CheckCircle, UserCheck } from "lucide-react";
 
 interface AboutSectionProps {
@@ -11,7 +12,7 @@ interface AboutSectionProps {
 
 export function AboutSection({ profile }: AboutSectionProps) {
   return (
-    <section id="sobre" className="py-16 sm:py-24 bg-zinc-950 text-white relative border-t border-zinc-900 w-full overflow-hidden">
+    <section id="sobre" className="scroll-mt-20 py-16 sm:py-24 bg-zinc-950 text-white relative border-t border-zinc-900 w-full overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="flex flex-col items-center mb-10 sm:mb-14 text-center">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono mb-3">
@@ -56,7 +57,7 @@ export function AboutSection({ profile }: AboutSectionProps) {
                 </div>
                 <div className="card-motion overflow-hidden flex items-center gap-2.5 sm:gap-3 p-2.5 rounded-xl bg-zinc-950/60 border border-zinc-800/60">
                   <Phone className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span className="truncate">{profile.phone}</span>
+                  <span className="truncate">{formatPhone(profile.phone)}</span>
                 </div>
               </div>
             </div>

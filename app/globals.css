@@ -75,6 +75,12 @@ body {
   isolation: isolate;
 }
 
+.avatar-motion {
+  position: relative;
+  isolation: isolate;
+  border-radius: 9999px;
+}
+
 @media (max-width: 639px) {
   .card-motion::before {
     content: "";
@@ -119,11 +125,50 @@ body {
     animation: card-light-sweep 4s ease-in-out infinite;
     pointer-events: none;
   }
+
+  .avatar-motion::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: -4px;
+    border-radius: inherit;
+    background: conic-gradient(
+      from 0deg,
+      #10b981,
+      #2dd4bf,
+      #22d3ee,
+      #2dd4bf,
+      #10b981
+    );
+    animation: card-aurora-rotate 8s linear infinite;
+    pointer-events: none;
+  }
+
+  .avatar-motion::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: -7px;
+    border-radius: inherit;
+    background: conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      transparent 300deg,
+      rgba(45, 212, 191, 0.85) 335deg,
+      rgba(34, 211, 238, 0.9) 355deg,
+      transparent 360deg
+    );
+    filter: blur(5px);
+    animation: card-aurora-rotate 5s linear infinite reverse;
+    pointer-events: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .card-motion::before,
-  .card-motion::after {
+  .card-motion::after,
+  .avatar-motion::before,
+  .avatar-motion::after {
     animation: none;
   }
 }

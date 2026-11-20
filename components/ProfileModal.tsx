@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import type { Profile } from "@/types/portfolio";
 import { resolveAvatarUrl } from "@/lib/media";
+import { formatPhone } from "@/lib/phone";
 
 interface ProfileModalProps {
   open: boolean;
@@ -331,8 +332,14 @@ function ProfileModalForm({
               <Field label="Telefone / WhatsApp">
                 <input
                   type="text"
-                  value={draft.phone}
-                  onChange={(event) => update("phone", event.target.value)}
+                  inputMode="numeric"
+                  autoComplete="tel"
+                  placeholder="9xx xxx xxx"
+                  maxLength={11}
+                  value={formatPhone(draft.phone)}
+                  onChange={(event) =>
+                    update("phone", formatPhone(event.target.value))
+                  }
                   className={inputClassName}
                 />
               </Field>

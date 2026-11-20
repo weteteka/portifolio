@@ -1,4 +1,5 @@
 import { Profile, SocialLink } from "@/types/portfolio";
+import { formatPhone } from "@/lib/phone";
 import { DynamicIcon } from "./DynamicIcon";
 import { ContactForm } from "./ContactForm";
 import { ArrowUpRight, Mail, MessageSquare, Phone } from "lucide-react";
@@ -68,7 +69,7 @@ export function ContactSection({ profile, socials }: ContactSectionProps) {
                   Telefone / WhatsApp
                 </span>
                 <span className="block truncate text-sm font-semibold text-zinc-100 transition-colors group-hover:text-cyan-300">
-                  {profile.phone}
+                  {formatPhone(profile.phone)}
                 </span>
               </span>
               <ArrowUpRight className="h-4 w-4 shrink-0 text-zinc-600 transition-colors group-hover:text-cyan-400" />

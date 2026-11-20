@@ -1,5 +1,5 @@
 import { getPortfolioData } from "@/lib/db";
-import { AboutSection } from "@/components/AboutSection";
+import { Hero } from "@/components/Hero";
 import { SectionLayout } from "@/components/SectionLayout";
 
 export default async function SobrePage() {
@@ -7,7 +7,7 @@ export default async function SobrePage() {
 
   return (
     <SectionLayout currentHref="/inicio">
-      <AboutSection profile={data.profile} />
+      <Hero profile={data.profile} socials={data.socials} />
     </SectionLayout>
   );
 }
