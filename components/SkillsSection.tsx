@@ -15,8 +15,17 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
     "Todas",
     "Frontend",
     "Backend",
+    "Fullstack",
     "DevOps & Cloud",
     "Mobile & Outros",
+    "UI/UX & Design",
+    "Design & Prototipagem",
+    "Banco de Dados",
+    "Testes & Qualidade",
+    "Ferramentas & Utilitários",
+    "Linguagens de Programação",
+    "Frameworks & Bibliotecas",
+    "Outros",
   ];
 
   const filteredSkills =

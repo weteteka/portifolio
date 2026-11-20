@@ -47,7 +47,7 @@ export function Hero({ profile, socials }: HeroProps) {
             <img
               src={avatarUrl}
               alt={profile.name || "Avatar padrão"}
-              className="w-32 h-32 sm:w-44 sm:h-44 rounded-full object-cover border-4 border-zinc-900 shadow-2xl"
+              className="w-32 h-32 sm:w-44 sm:h-44 rounded-full object-cover object-top border-4 border-zinc-900 shadow-2xl"
             />
           </button>
           <div className="absolute bottom-1 right-1 p-1.5 sm:p-2 bg-zinc-900 border border-zinc-700 rounded-full text-emerald-400 shadow-md">

@@ -43,6 +43,12 @@ export function ToolsSection({ tools, skills }: ToolsSectionProps) {
     "DevOps & Cloud",
     "Design & Prototipagem",
     "Produtividade",
+    "Comunicação",
+    "Colaboração",
+    "Banco de Dados",
+    "Testes & Qualidade",
+    "Ferramentas & Utilitários",
+    "Outros",
   ];
 
   const filteredTools =
